@@ -206,7 +206,7 @@ const Footer = () => {
             fontFamily: "Nunito, Arial, sans-serif",
           }}
         >
-          © 2025 Halo Spa &amp; Yoga. כל הזכויות שמורות.
+          © 2025 Halo Massage &amp; Yoga. כל הזכויות שמורות.
         </Typography>
       </Box>
     </Box>

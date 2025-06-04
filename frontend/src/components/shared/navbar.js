@@ -1,5 +1,3 @@
-// src/components/shared/navbar.js
-
 import React, { useState, useEffect } from "react";
 import {
   AppBar,
@@ -21,7 +19,7 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 // הקישורים בסדר RTL, עברית מלאה
 const navLinks = [
   { label: "חבילות ומחירים", path: "/packages" },
-  { label: "ספא", path: "/spa" },
+  { label: "עיסוי", path: "/massage" }, // שינינו מ־"ספא" ל־"עיסוי "
   { label: "יוגה", path: "/yoga" },
   { label: "גלריה", path: "/gallery" },
   { label: "צור קשר", path: "/contact" },
@@ -154,7 +152,7 @@ const Navbar = () => {
                 textTransform: "none",
               }}
             >
-              Halo ספא &amp; יוגה
+              Halo עיסוי &amp; יוגה
             </Typography>
           </Box>
 

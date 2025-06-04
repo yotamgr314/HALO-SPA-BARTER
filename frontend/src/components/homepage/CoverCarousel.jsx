@@ -4,7 +4,7 @@ import { Box, Fade, Typography } from "@mui/material";
 // כתובות התמונות (ממוקמות ישירות בתיקיית public)
 const coverImages = ["/spa1.png", "/spa2.png", "/yoga1.png"];
 // טקסטים לאנימציית ה־typing (RTL)
-const overlayTexts = ["רגעי ספא", "חווית יוגה", "הרגע והתחבר"];
+const overlayTexts = ["עיסוי מרגיע", "חווית יוגה", "הרגע והתחבר"];
 
 const CoverCarousel = ({ interval = 5000 }) => {
   const [imageIndex, setImageIndex] = useState(0);

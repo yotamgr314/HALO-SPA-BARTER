@@ -42,7 +42,7 @@ const HomePage = () => {
               fontFamily: "Arial, sans-serif",
             }}
           >
-            ברוכים הבאים ל־Halo Spa &amp; Yoga
+            ברוכים הבאים ל־Halo Massage &amp; Yoga
           </Typography>
           <Button
             variant="contained"
@@ -91,7 +91,7 @@ const HomePage = () => {
             gap: 4,
           }}
         >
-          {/* קופסת ספא */}
+          {/* קופסת מסאזים */}
           <Box
             sx={{
               backgroundColor: "#111",
@@ -109,7 +109,7 @@ const HomePage = () => {
                 direction: "rtl",
               }}
             >
-              טיפולי ספא
+              מסאז'ים
             </Typography>
             <Typography
               variant="body1"
