@@ -19,82 +19,34 @@ const Footer = () => {
         px: { xs: 2, md: 6 },
       }}
     >
-      {/* חלק עליון של הפוטר: לוגו ותיאור קצר */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: { xs: "column", md: "row" },
-          justifyContent: "space-between",
-          alignItems: { xs: "flex-start", md: "center" },
-          mb: 4,
-        }}
-      >
-        <Box
-          sx={{ display: "flex", alignItems: "center", mb: { xs: 2, md: 0 } }}
-        >
-          <Box
-            component="img"
-            src="/HaloLogo.jpg"
-            alt="Halo Spa & Yoga"
-            sx={{
-              width: 50,
-              height: 50,
-              borderRadius: "50%",
-              backgroundColor: "#fff",
-              p: 0.5,
-              mr: 1,
-            }}
-          />
-          <Typography
-            variant="h6"
-            sx={{
-              fontFamily: "Nunito, Arial, sans-serif",
-              fontWeight: 700,
-              color: "#fff",
-            }}
-          >
-            Halo ספא &amp; יוגה
-          </Typography>
-        </Box>
-
-        <Typography
-          variant="body2"
-          sx={{
-            maxWidth: { xs: "100%", md: "50%" },
-            textAlign: { xs: "right", md: "right" },
-            direction: "rtl",
-            fontFamily: "Nunito, Arial, sans-serif",
-            lineHeight: 1.6,
-          }}
-        >
-          ב־Halo Spa &amp; Yoga אנו מתמחים ביצירת חוויית פינוק מושלמת: עיסוי
-          מקצועי לשחרור מתח ושיקום הגוף, לצד שיעורי יוגה מרגיעים ומדויקים. הצוות
-          שלנו כאן כדי להעניק לכם את הטיפול המתאים ביותר.
-        </Typography>
-      </Box>
-
-      {/* חלק אמצעי: ארבע עמודות */}
+      {/* חלק אמצעי: שלוש עמודות */}
       <Box
         sx={{
           display: "grid",
           gridTemplateColumns: {
             xs: "1fr",
             sm: "1fr 1fr",
-            md: "repeat(4, 1fr)",
+            md: "repeat(3, 1fr)",
           },
-          gap: 4,
-          mb: 4,
+          gap: 1, // רווח מצומצם מאוד בין העמודות
+          mb: 1,
+          direction: "rtl", // כדי שמידע עלינו יופיע ראשונה מצד ימין
         }}
       >
-        {/* עמודה 1: מידע עלינו */}
+        {/* עמודה 1 (ימנית ביותר): מידע עלינו + אייקונים חברתיים בתחתית */}
         <Box
-          sx={{ display: "flex", flexDirection: "column", direction: "rtl" }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            direction: "rtl",
+            pr: 1, // מרווח קל מצד ימין
+          }}
         >
           <Typography
             variant="subtitle1"
             sx={{
               fontWeight: 600,
-              mb: 2,
+              mb: 0.5, // פחות מרווח אחרי הכותרת
               color: "#fff",
               fontFamily: "Nunito, Arial, sans-serif",
             }}
@@ -110,85 +62,9 @@ const Footer = () => {
           <Link href="/philosophy" underline="none" sx={linkStyle}>
             פילוסופיית הטיפול שלי
           </Link>
-        </Box>
 
-        {/* עמודה 2: שירותי עיסוי */}
-        <Box
-          sx={{ display: "flex", flexDirection: "column", direction: "rtl" }}
-        >
-          <Typography
-            variant="subtitle1"
-            sx={{
-              fontWeight: 600,
-              mb: 2,
-              color: "#fff",
-              fontFamily: "Nunito, Arial, sans-serif",
-            }}
-          >
-            שירותי עיסוי
-          </Typography>
-          <Typography variant="body2" sx={textStyle}>
-            עיסוי תאילנדי מסורתי
-          </Typography>
-          <Typography variant="body2" sx={textStyle}>
-            עיסוי רקמות עמוק
-          </Typography>
-          <Typography variant="body2" sx={textStyle}>
-            עיסוי משולב מותאם אישית
-          </Typography>
-          <Typography variant="body2" sx={textStyle}>
-            אקוספורה רפואית לשחרור מתחים
-          </Typography>
-        </Box>
-
-        {/* עמודה 3: סוגי שיעורי יוגה */}
-        <Box
-          sx={{ display: "flex", flexDirection: "column", direction: "rtl" }}
-        >
-          <Typography
-            variant="subtitle1"
-            sx={{
-              fontWeight: 600,
-              mb: 2,
-              color: "#fff",
-              fontFamily: "Nunito, Arial, sans-serif",
-            }}
-          >
-            סוגי שיעורי יוגה
-          </Typography>
-          <Typography variant="body2" sx={textStyle}>
-            האטה יוגה – תרגול מרגיע ומדויק
-          </Typography>
-          <Typography variant="body2" sx={textStyle}>
-            ויניאסה – יוגה זורמת ונמרצת
-          </Typography>
-          <Typography variant="body2" sx={textStyle}>
-            אשטנגה – יוגה דינמית לפי סדר קבוע
-          </Typography>
-          <Typography variant="body2" sx={textStyle}>
-            יוגילאטיס – שילוב בין יוגה לפילאטיס
-          </Typography>
-          <Typography variant="body2" sx={textStyle}>
-            יוגה לבני 60+ / יוגה בכיסאות
-          </Typography>
-        </Box>
-
-        {/* עמודה 4: עקבו אחרינו */}
-        <Box
-          sx={{ display: "flex", flexDirection: "column", direction: "rtl" }}
-        >
-          <Typography
-            variant="subtitle1"
-            sx={{
-              fontWeight: 600,
-              mb: 2,
-              color: "#fff",
-              fontFamily: "Nunito, Arial, sans-serif",
-            }}
-          >
-            עקבו אחרינו
-          </Typography>
-          <Box sx={{ display: "flex", gap: 1, mb: 1 }}>
+          {/* אייקוני רשתות חברתיות בתחתית העמודה */}
+          <Box sx={{ display: "flex", gap: 1, mt: 1 }}>
             <IconButton
               size="small"
               sx={{ color: "#fff" }}
@@ -228,8 +104,76 @@ const Footer = () => {
               <EmailIcon />
             </IconButton>
           </Box>
+        </Box>
+
+        {/* עמודה 2: שירותי עיסוי */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            direction: "rtl",
+            px: 1, // פחות רווח אופקי בין העמודות
+          }}
+        >
+          <Typography
+            variant="subtitle1"
+            sx={{
+              fontWeight: 600,
+              mb: 0.5, // פחות מרווח אחרי הכותרת
+              color: "#fff",
+              fontFamily: "Nunito, Arial, sans-serif",
+            }}
+          >
+            שירותי עיסוי
+          </Typography>
           <Typography variant="body2" sx={textStyle}>
-            הצטרפו לניוזלטר שלנו לקבלת עדכונים והטבות
+            עיסוי תאילנדי מסורתי
+          </Typography>
+          <Typography variant="body2" sx={textStyle}>
+            עיסוי רקמות עמוק
+          </Typography>
+          <Typography variant="body2" sx={textStyle}>
+            עיסוי משולב מותאם אישית
+          </Typography>
+          <Typography variant="body2" sx={textStyle}>
+            אקוספורה רפואית לשחרור מתחים
+          </Typography>
+        </Box>
+
+        {/* עמודה 3: סוגי שיעורי יוגה */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            direction: "rtl",
+            pl: 1, // פחות רווח אופקי בין העמודות
+          }}
+        >
+          <Typography
+            variant="subtitle1"
+            sx={{
+              fontWeight: 600,
+              mb: 0.5, // פחות מרווח אחרי הכותרת
+              color: "#fff",
+              fontFamily: "Nunito, Arial, sans-serif",
+            }}
+          >
+            סוגי שיעורי יוגה
+          </Typography>
+          <Typography variant="body2" sx={textStyle}>
+            האטה יוגה – תרגול מרגיע ומדויק
+          </Typography>
+          <Typography variant="body2" sx={textStyle}>
+            ויניאסה – יוגה זורמת ונמרצת
+          </Typography>
+          <Typography variant="body2" sx={textStyle}>
+            אשטנגה – יוגה דינמית לפי סדר קבוע
+          </Typography>
+          <Typography variant="body2" sx={textStyle}>
+            יוגילאטיס – שילוב בין יוגה לפילאטיס
+          </Typography>
+          <Typography variant="body2" sx={textStyle}>
+            יוגה לבני 60+ / יוגה בכיסאות
           </Typography>
         </Box>
       </Box>
@@ -259,7 +203,7 @@ const Footer = () => {
 
 // סגנון משותף לקישורים
 const linkStyle = {
-  mb: 1,
+  mb: 0.5, // פחות מרווח בין הקישורים
   color: "#E0E0E0",
   fontFamily: "Nunito, Arial, sans-serif",
   "&:hover": {
@@ -270,7 +214,7 @@ const linkStyle = {
 
 // סגנון משותף לטקסט רגיל
 const textStyle = {
-  mb: 1,
+  mb: 0.5, // פחות מרווח בין השורות
   color: "#E0E0E0",
   fontFamily: "Nunito, Arial, sans-serif",
 };
