@@ -19,7 +19,7 @@ const HomePage = () => {
       <Box sx={{ position: "relative", width: "100%" }}>
         <Navbar />
 
-        {/* Carousel עם תמונות (4 שניות) + אנימציית טקסט RTL */}
+        {/* Carousel עם תמונות (5 שניות) + אנימציית טקסט RTL */}
         <CoverCarousel interval={5000} />
 
         {/* כיתוב מתחת לסליידר */}
@@ -91,7 +91,7 @@ const HomePage = () => {
             gap: 4,
           }}
         >
-          {/* קופסת מסאזים */}
+          {/* קופסת מסאז' */}
           <Box
             sx={{
               backgroundColor: "#111",
@@ -120,8 +120,7 @@ const HomePage = () => {
                 direction: "rtl",
               }}
             >
-              מגוון טיפולי עיסויים, פציאלים וטיפולים לגוף שמרגיעים ומשקמים את
-              הגוף והנפש.
+              מגוון טיפולי מסאז’ מרגיעים ומשקמים את הגוף והנפש.
             </Typography>
             <Button
               variant="outlined"
@@ -131,7 +130,7 @@ const HomePage = () => {
                 fontFamily: "Arial, sans-serif",
               }}
             >
-              רשימת טיפולי ספא
+              רשימת טיפולי מסאז'
             </Button>
           </Box>
 

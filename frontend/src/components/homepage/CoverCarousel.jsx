@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+// src/components/homepage/CoverCarousel.jsx
+
+import React, { useState, useEffect, useRef } from "react";
 import { Box, Fade, Typography } from "@mui/material";
 
 // כתובות התמונות (ממוקמות ישירות בתיקיית public)
 const coverImages = ["/spa1.png", "/spa2.png", "/yoga1.png"];
-// טקסטים לאנימציית ה־typing (RTL)
-const overlayTexts = ["עיסוי מרגיע", " חווית יוגה משחררת"];
+// טקסטים לאנימציית ה־typing (RTL): עיסוי ויוגה
+const overlayTexts = ["עיסוי מרגיע", "חווית יוגה"];
 
 const CoverCarousel = ({ interval = 5000 }) => {
   const [imageIndex, setImageIndex] = useState(0);
@@ -15,42 +17,69 @@ const CoverCarousel = ({ interval = 5000 }) => {
   const [displayedText, setDisplayedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // אפקט לסלייד של תמונות (5 שניות)
+  // ref בשביל לאגור timeout ולהשמיד כשמתנתקים
+  const typingTimeoutRef = useRef(null);
+  const carouselIntervalRef = useRef(null);
+
+  // אפקט לסלייד של תמונות (interval צבעי Fade)
   useEffect(() => {
     if (coverImages.length < 2) return;
 
-    const carouselInterval = setInterval(() => {
+    // כל חמש שניות עוברים תמונה
+    carouselIntervalRef.current = setInterval(() => {
       setShowImage(false);
       setTimeout(() => {
         setImageIndex((prev) => (prev + 1) % coverImages.length);
         setShowImage(true);
-      }, 500); // fade-out
+      }, 600); // fade-out + fade-in
     }, interval);
 
-    return () => clearInterval(carouselInterval);
+    return () => {
+      clearInterval(carouselIntervalRef.current);
+    };
   }, [interval]);
 
-  // אפקט typing/delete לטקסט
+  // אפקט typing/delete לטקסט עם קצב נעים יותר
   useEffect(() => {
+    // ניקוי timeout קודם (אם קיים), לפני הגדרה של חדש
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+    }
+
     const currentText = overlayTexts[textIndex % overlayTexts.length];
-    const delta = isDeleting ? 100 : 200;
 
-    const typingTimeout = setTimeout(() => {
-      if (!isDeleting) {
+    // משתנים לגמישות הקצב
+    const typingSpeed = 130; // זמן בין תו לתו בהקלדה (ms)
+    const deletingSpeed = 60; // זמן בין תו לתו במחיקה (ms)
+    const pauseAfterWrite = 2500; // השהייה קצרה בסיום הכתיבה (ms)
+    const pauseAfterDelete = 400; // השהייה קצרה בסיום המחיקה (ms)
+
+    if (!isDeleting && displayedText.length < currentText.length) {
+      // אם עדיין לא סיימנו להקליד את כל הטקסט -> מוסיפים עוד תו
+      typingTimeoutRef.current = setTimeout(() => {
         setDisplayedText(currentText.substring(0, displayedText.length + 1));
-        if (displayedText.length + 1 === currentText.length) {
-          setTimeout(() => setIsDeleting(true), 1000);
-        }
-      } else {
+      }, typingSpeed);
+    } else if (!isDeleting && displayedText.length === currentText.length) {
+      // אם סיימנו להקליד את הטקסט: חכה לפאוז קצר, ואז נתחיל למחוק
+      typingTimeoutRef.current = setTimeout(() => {
+        setIsDeleting(true);
+      }, pauseAfterWrite);
+    } else if (isDeleting && displayedText.length > 0) {
+      // אם בעיצומו של תהליך מחיקה -> מוחקים תו
+      typingTimeoutRef.current = setTimeout(() => {
         setDisplayedText(currentText.substring(0, displayedText.length - 1));
-        if (displayedText.length - 1 === 0) {
-          setIsDeleting(false);
-          setTextIndex((prev) => prev + 1);
-        }
-      }
-    }, delta);
+      }, deletingSpeed);
+    } else if (isDeleting && displayedText.length === 0) {
+      // אם סיימנו למחוק לחלוטין -> חכה מעט, ואז עבור לטקסט הבא ונתחיל להקליד
+      typingTimeoutRef.current = setTimeout(() => {
+        setIsDeleting(false);
+        setTextIndex((prev) => prev + 1);
+      }, pauseAfterDelete);
+    }
 
-    return () => clearTimeout(typingTimeout);
+    return () => {
+      clearTimeout(typingTimeoutRef.current);
+    };
   }, [displayedText, isDeleting, textIndex]);
 
   return (
@@ -66,7 +95,7 @@ const CoverCarousel = ({ interval = 5000 }) => {
         <Fade
           key={idx}
           in={idx === imageIndex && showImage}
-          timeout={{ enter: 500, exit: 500 }}
+          timeout={{ enter: 600, exit: 600 }}
         >
           <Box
             component="img"
@@ -93,18 +122,18 @@ const CoverCarousel = ({ interval = 5000 }) => {
           width: "100%",
           height: "100%",
           background:
-            "linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.4))",
+            "linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.5))",
         }}
       />
 
-      {/* אנימציית הטקסט – גוון Soft Sand Beige (#EDE6DB) */}
+      {/* אנימציית הטקסט בצבע Lavender Mist (#D4C4E2), מודגש וזורם */}
       <Box
         sx={{
           position: "absolute",
           top: "50%",
           right: "10%",
           transform: "translateY(-50%)",
-          color: "#EDE6DB",
+          color: "#D4C4E2",
           textAlign: "right",
           direction: "rtl",
           pr: { xs: 2, md: 4 },
@@ -114,9 +143,12 @@ const CoverCarousel = ({ interval = 5000 }) => {
           variant="h3"
           sx={{
             fontFamily: "Arial, sans-serif",
-            fontWeight: "bold",
+            fontWeight: 900, // מודגש מאוד
             fontSize: { xs: "1.5rem", md: "3rem" },
             minHeight: { xs: "2rem", md: "4rem" },
+            lineHeight: 1.1,
+            textShadow: "2px 2px 4px rgba(0,0,0,0.7)",
+            whiteSpace: "nowrap", // למנוע קו שבירה
           }}
         >
           {displayedText}
@@ -125,7 +157,7 @@ const CoverCarousel = ({ interval = 5000 }) => {
             sx={{
               display: "inline-block",
               width: "2px",
-              backgroundColor: "#EDE6DB",
+              backgroundColor: "#D4C4E2",
               marginLeft: "5px",
               animation: "blink 1s steps(2, start) infinite",
             }}
