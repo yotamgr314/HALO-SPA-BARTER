@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Box, Fade, Typography } from "@mui/material";
 
 // כתובות התמונות (ממוקמות ישירות בתיקיית public)
-const coverImages = ["/spa1.png", "/spa2.png", "/yoga1.png"];
+const coverImages = ["/spa1.png", "/spa2.png", "/yoga1.jpg"];
 // טקסטים לאנימציית ה־typing (RTL): עיסוי ויוגה
 const overlayTexts = ["עיסוי מרגיע", "חווית יוגה"];
 
