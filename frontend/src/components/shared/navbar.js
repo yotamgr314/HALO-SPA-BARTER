@@ -1,6 +1,6 @@
 // src/components/shared/navbar.js
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   AppBar,
   Box,
@@ -18,59 +18,80 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
+// **נעביר את כל הטקסטים לעברית**
 const navLinks = [
-  { label: "Home", path: "/" },
-  { label: "About", path: "/about" },
-  { label: "Services", path: "/services" },
-  { label: "Contact", path: "/contact" },
+  { label: "דף הבית", path: "/" },
+  { label: "אודות", path: "/about" },
+  { label: "שירותים", path: "/services" },
+  { label: "צור קשר", path: "/contact" },
 ];
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const location = useLocation();
   const navigate = useNavigate();
 
+  // lisen לגלילה כדי לשנות צבע רקע + blur
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // שחרור/סגירת ה־Drawer
   const handleDrawerToggle = () => {
-    setMobileOpen((prevState) => !prevState);
+    setMobileOpen((prev) => !prev);
   };
 
+  // התוכן שבתוך ה־Drawer (תפריט צד במובייל)
   const drawer = (
     <Box
-      sx={{ width: 240, backgroundColor: "#141414", height: "100%" }}
+      sx={{
+        width: 240,
+        // שקוף + blur על כל המסך
+        backgroundColor: "rgba(0,0,0,0.3)",
+        backdropFilter: "blur(10px)",
+        height: "100vh",
+      }}
       onClick={handleDrawerToggle}
     >
       <List>
-        {navLinks.map((link) =>
-          link.path ? (
-            <NavLink
-              key={link.label}
-              to={link.path}
-              style={{ textDecoration: "none" }}
-            >
-              <ListItem disablePadding>
-                <ListItemButton selected={location.pathname === link.path}>
-                  <ListItemText
-                    primary={link.label}
-                    primaryTypographyProps={{
-                      sx: {
-                        color:
-                          location.pathname === link.path ? "#fff" : "#E5E5E5",
-                        fontWeight:
-                          location.pathname === link.path ? "bold" : 400,
-                        fontFamily: "Netflix Sans, Arial, sans-serif",
-                        fontSize: "14px",
-                        lineHeight: "17px",
-                      },
-                    }}
-                  />
-                </ListItemButton>
-              </ListItem>
-            </NavLink>
-          ) : null
-        )}
+        {navLinks.map((link) => (
+          <NavLink
+            key={link.label}
+            to={link.path}
+            style={{ textDecoration: "none" }}
+          >
+            <ListItem disablePadding>
+              <ListItemButton selected={location.pathname === link.path}>
+                <ListItemText
+                  primary={link.label}
+                  primaryTypographyProps={{
+                    sx: {
+                      color:
+                        location.pathname === link.path ? "#fff" : "#E5E5E5",
+                      fontWeight:
+                        location.pathname === link.path ? "bold" : 400,
+                      fontFamily: "Arial, sans-serif",
+                      fontSize: "14px",
+                      lineHeight: "17px",
+                    },
+                  }}
+                />
+              </ListItemButton>
+            </ListItem>
+          </NavLink>
+        ))}
       </List>
     </Box>
   );
@@ -78,15 +99,18 @@ const Navbar = () => {
   return (
     <>
       <AppBar
-        position="absolute"
+        position="fixed"
         sx={{
-          backgroundColor: "transparent",
+          // אם גוללו מספיק, נוסיף רקע כהה + blur
+          backgroundColor: scrolled ? "rgba(0, 0, 0, 0.8)" : "transparent",
           boxShadow: "none",
+          backdropFilter: scrolled ? "blur(10px)" : "none",
+          transition: "background-color 0.3s ease, backdrop-filter 0.3s ease",
           top: 0,
           left: 0,
           width: "100%",
           px: { xs: 2, md: "58px" },
-          zIndex: 999,
+          zIndex: 1300,
         }}
       >
         <Toolbar
@@ -108,16 +132,18 @@ const Navbar = () => {
                 <MenuIcon />
               </IconButton>
             )}
+
             <Typography
               sx={{
-                color: "#E50914",
+                color: "#fff",
                 fontSize: { xs: "1.5rem", md: "2rem" },
                 fontWeight: "bold",
                 cursor: "pointer",
+                fontFamily: "Arial, sans-serif",
               }}
               onClick={() => navigate("/")}
             >
-              SPA-YOGA
+              ספא &amp; יוגה
             </Typography>
 
             {!isMobile && (
@@ -130,7 +156,7 @@ const Navbar = () => {
                 }}
               >
                 {navLinks.map((link) => {
-                  const isActive = link.path && location.pathname === link.path;
+                  const isActive = location.pathname === link.path;
                   return (
                     <NavLink
                       key={link.label}
@@ -140,7 +166,7 @@ const Navbar = () => {
                       <Typography
                         sx={{
                           cursor: "pointer",
-                          fontFamily: "Netflix Sans, Arial, sans-serif",
+                          fontFamily: "Arial, sans-serif",
                           fontSize: "14px",
                           fontWeight: 400,
                           lineHeight: "17px",
@@ -161,6 +187,7 @@ const Navbar = () => {
         </Toolbar>
       </AppBar>
 
+      {/* Drawer במובייל */}
       <Box component="nav">
         <Drawer
           variant="temporary"
@@ -172,7 +199,8 @@ const Navbar = () => {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: 240,
-              backgroundColor: "#141414",
+              backgroundColor: "rgba(0,0,0,0.3)",
+              backdropFilter: "blur(10px)",
               color: "#fff",
               overflowX: "hidden",
             },

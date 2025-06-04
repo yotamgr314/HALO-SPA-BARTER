@@ -5,30 +5,22 @@ import { Box, Typography, Button } from "@mui/material";
 import Navbar from "../shared/navbar";
 import CoverCarousel from "./CoverCarousel";
 
-/**
- * מערך URL של תמונות לכיסוי הראשי.
- * הנח שמיקמת את התמונות בתיקיית public/assets:
- *   public/
- *     assets/
- *       spa1.jpg
- *       yoga1.jpg
- *       spa2.jpg
- */
-const coverImages = [
-  "/assets/spa1.jpg", // תמונת ספא
-  "/assets/yoga1.jpg", // תמונת יוגה
-  "/assets/spa2.jpg", // תמונה נוספת של ספא
-];
-
 const HomePage = () => {
   return (
-    <Box sx={{ backgroundColor: "#000", color: "#fff", minHeight: "100vh" }}>
+    <Box
+      sx={{
+        backgroundColor: "#000",
+        color: "#fff",
+        minHeight: "100vh",
+        overflowX: "hidden",
+      }}
+    >
       {/* HERO / COVER SECTION */}
       <Box sx={{ position: "relative", width: "100%" }}>
         <Navbar />
 
-        {/* Carousel עם תמונות */}
-        <CoverCarousel images={coverImages} interval={4000} />
+        {/* Carousel עם התמונות והאנימציית טקסט הכי */}
+        <CoverCarousel interval={4000} />
 
         {/* שכבת טקסט/כפתור על התמונה */}
         <Box
@@ -45,9 +37,10 @@ const HomePage = () => {
               fontWeight: "bold",
               mb: 2,
               fontSize: { xs: "1.5rem", md: "3rem" },
+              fontFamily: "Arial, sans-serif",
             }}
           >
-            SPA & YOGA EXPERIENCE
+            ברוכים הבאים לספא &amp; יוגה
           </Typography>
           <Button
             variant="contained"
@@ -55,16 +48,17 @@ const HomePage = () => {
               backgroundColor: "rgba(255,255,255,0.8)",
               color: "#000",
               fontWeight: "bold",
+              fontFamily: "Arial, sans-serif",
               "&:hover": { backgroundColor: "rgba(255,255,255,0.9)" },
             }}
             href="#services"
           >
-            Learn More
+            למידע נוסף
           </Button>
         </Box>
       </Box>
 
-      {/* תפריט שירותים לדוגמה */}
+      {/* תפריט שירותים */}
       <Box
         id="services"
         sx={{
@@ -75,8 +69,15 @@ const HomePage = () => {
           gap: 4,
         }}
       >
-        <Typography variant="h4" sx={{ fontWeight: "bold", mb: 2 }}>
-          Our Services
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: "bold",
+            mb: 2,
+            fontFamily: "Arial, sans-serif",
+          }}
+        >
+          השירותים שלנו
         </Typography>
 
         <Box
@@ -95,18 +96,34 @@ const HomePage = () => {
               "&:hover": { backgroundColor: "#222" },
             }}
           >
-            <Typography variant="h5" sx={{ mb: 1 }}>
-              Spa Treatments
+            <Typography
+              variant="h5"
+              sx={{
+                mb: 1,
+                fontFamily: "Arial, sans-serif",
+              }}
+            >
+              טיפולי ספא
             </Typography>
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              Enjoy a range of massages, facials and body treatments designed to
-              relax and rejuvenate you.
+            <Typography
+              variant="body1"
+              sx={{
+                mb: 2,
+                fontFamily: "Arial, sans-serif",
+              }}
+            >
+              מגוון טיפולי עיסויים, פציאלים וטיפולים לגוף שמרגיעים ומשקמים את
+              הגוף והנפש.
             </Typography>
             <Button
               variant="outlined"
-              sx={{ color: "#fff", borderColor: "#fff" }}
+              sx={{
+                color: "#fff",
+                borderColor: "#fff",
+                fontFamily: "Arial, sans-serif",
+              }}
             >
-              View Spa Menu
+              רשימת טיפולי ספא
             </Button>
           </Box>
 
@@ -119,25 +136,37 @@ const HomePage = () => {
               "&:hover": { backgroundColor: "#222" },
             }}
           >
-            <Typography variant="h5" sx={{ mb: 1 }}>
-              Yoga Classes
+            <Typography
+              variant="h5"
+              sx={{
+                mb: 1,
+                fontFamily: "Arial, sans-serif",
+              }}
+            >
+              שיעורי יוגה
             </Typography>
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              Join our expert-led yoga sessions suitable for all levels, from
-              beginner to advanced.
+            <Typography
+              variant="body1"
+              sx={{
+                mb: 2,
+                fontFamily: "Arial, sans-serif",
+              }}
+            >
+              הצטרפו לשיעורי יוגה מודרכים לכל הרמות, ממתחילים ועד מתקדמים.
             </Typography>
             <Button
               variant="outlined"
-              sx={{ color: "#fff", borderColor: "#fff" }}
+              sx={{
+                color: "#fff",
+                borderColor: "#fff",
+                fontFamily: "Arial, sans-serif",
+              }}
             >
-              View Yoga Schedule
+              לוח זמנים
             </Button>
           </Box>
         </Box>
       </Box>
-
-      {/* הוספת פוטר (אם יש קומפוננטה מתאימה) */}
-      {/* <Footer /> */}
     </Box>
   );
 };
