@@ -55,7 +55,7 @@ const Footer = () => {
               lineHeight: 1.2,
             }}
           >
-            מידע עלינו
+            קצת עלינו
           </Typography>
           <Link href="/faq" underline="none" sx={linkStyle}>
             שאלות נפוצות
@@ -131,7 +131,7 @@ const Footer = () => {
               lineHeight: 1.2,
             }}
           >
-            שירותי עיסוי
+            סוגי עיסויים
           </Typography>
           <Typography variant="body2" sx={textStyle}>
             עיסוי תאילנדי מסורתי
@@ -170,7 +170,7 @@ const Footer = () => {
               lineHeight: 1.2,
             }}
           >
-            סוגי שיעורי יוגה
+            סוגי יוגה
           </Typography>
           <Typography variant="body2" sx={textStyle}>
             האטה יוגה – תרגול מרגיע ומדויק
