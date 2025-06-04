@@ -18,10 +18,12 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
+// שמות הקישורים (סדר RTL)
 const navLinks = [
-  { label: "דף הבית", path: "/" },
-  { label: "אודות", path: "/about" },
-  { label: "שירותים", path: "/services" },
+  { label: "חבילות ומחירים", path: "/packages" },
+  { label: "ספא", path: "/spa" },
+  { label: "יוגה", path: "/yoga" },
+  { label: "גלריה", path: "/gallery" },
   { label: "צור קשר", path: "/contact" },
 ];
 
@@ -37,11 +39,7 @@ const Navbar = () => {
   // מאזין לגלילה כדי לשנות רקע + blur
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -51,7 +49,7 @@ const Navbar = () => {
     setMobileOpen((prev) => !prev);
   };
 
-  // תוכן ה-Drawer במובייל (שקוף + blur)
+  // תוכן ה־Drawer במובייל (שקוף + blur)
   const drawer = (
     <Box
       sx={{
@@ -80,9 +78,10 @@ const Navbar = () => {
                       fontWeight:
                         location.pathname === link.path ? "bold" : 400,
                       fontFamily: "Arial, sans-serif",
-                      fontSize: "14px",
-                      lineHeight: "17px",
+                      fontSize: "16px",
+                      lineHeight: "20px",
                       textAlign: "right", // RTL alignment
+                      direction: "rtl",
                     },
                   }}
                 />
@@ -115,31 +114,55 @@ const Navbar = () => {
           sx={{
             minHeight: "68px",
             display: "flex",
-            justifyContent: "flex-end", // כל התוכן לצד ימין
+            justifyContent: "space-between", // לוגו+טקסט בשמאל, קישורים בימין
             alignItems: "center",
           }}
         >
-          {/* 1) הלוגו – בצד הימני הכי */}
+          {/* ===== צד שמאל: הלוגו המעוגל + טקסט מזמין ===== */}
           <Box
-            component="img"
-            src="/HaloLogo.jpg"
-            alt="לוגו"
             sx={{
-              height: 40,
+              display: "flex",
+              alignItems: "center",
               cursor: "pointer",
-              mr: isMobile ? 0 : 2, // רווח בין הלוגו לקישורים
             }}
             onClick={() => navigate("/")}
-          />
+          >
+            {/* 1) הלוגו המעוגל */}
+            <Box
+              component="img"
+              src="/HaloLogo.png" // ודא שהלוגו בשם זה נמצא בתיקיית public
+              alt="Halo Spa & Yoga"
+              sx={{
+                height: 40,
+                width: 40,
+                borderRadius: "50%", // עיגול מלא
+                objectFit: "cover",
+                mr: 1,
+              }}
+            />
+            {/* 2) טקסט מזמין ליד הלוגו */}
+            <Typography
+              variant="h6"
+              sx={{
+                color: "#fff",
+                fontFamily: "Arial, sans-serif",
+                fontSize: { xs: "1rem", md: "1.25rem" },
+                fontWeight: "bold",
+                textTransform: "none",
+              }}
+            >
+              Halo Spa &amp; Yoga
+            </Typography>
+          </Box>
 
-          {/* 2) בחלון רחב (לא מובייל) – הקישורים ליד הלוגו (לפי RTL) */}
-          {!isMobile && (
+          {/* ===== צד ימין: navLinks (בקצה הימני) או אייקון למובייל ===== */}
+          {!isMobile ? (
             <Box
               sx={{
                 display: "flex",
                 alignItems: "center",
-                gap: "20px",
-                direction: "rtl", // כדי שהקישורים יתחילו מימין לשמאל
+                gap: "30px",
+                direction: "rtl", // RTL: מימין לשמאל
               }}
             >
               {navLinks.map((link) => {
@@ -154,14 +177,14 @@ const Navbar = () => {
                       sx={{
                         cursor: "pointer",
                         fontFamily: "Arial, sans-serif",
-                        fontSize: "14px",
-                        fontWeight: 400,
-                        lineHeight: "17px",
+                        fontSize: "18px",
+                        fontWeight: isActive ? "bold" : 400,
+                        lineHeight: "22px",
                         color: isActive ? "#fff" : "#E5E5E5",
                         opacity: isActive ? 1 : 0.8,
-                        transition: "opacity 0.3s ease",
                         "&:hover": { opacity: 1 },
                         textAlign: "right",
+                        direction: "rtl",
                       }}
                     >
                       {link.label}
@@ -170,16 +193,8 @@ const Navbar = () => {
                 );
               })}
             </Box>
-          )}
-
-          {/* 3) אייקון התפריט למובייל */}
-          {isMobile && (
-            <IconButton
-              color="inherit"
-              edge="end"
-              onClick={handleDrawerToggle}
-              sx={{ ml: 1 }}
-            >
+          ) : (
+            <IconButton color="inherit" edge="end" onClick={handleDrawerToggle}>
               <MenuIcon />
             </IconButton>
           )}
