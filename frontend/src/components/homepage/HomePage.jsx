@@ -4,7 +4,6 @@ import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import Navbar from "../shared/navbar";
 import CoverCarousel from "./CoverCarousel";
-import Footer from "../shared/Footer";
 
 const HomePage = () => {
   return (
@@ -180,9 +179,6 @@ const HomePage = () => {
           </Box>
         </Box>
       </Box>
-
-      {/* מפת הגעה + פרטי יצירת קשר + הפוטר */}
-      <Footer />
     </Box>
   );
 };
