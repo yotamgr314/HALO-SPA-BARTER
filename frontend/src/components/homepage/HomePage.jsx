@@ -18,11 +18,7 @@ const HomePage = () => {
       {/* HERO / COVER SECTION */}
       <Box sx={{ position: "relative", width: "100%" }}>
         <Navbar />
-
-        {/* Carousel עם תמונות (5 שניות) + אנימציית טקסט RTL */}
         <CoverCarousel interval={5000} />
-
-        {/* כיתוב מתחת לסליידר */}
         <Box
           sx={{
             position: "absolute",
@@ -177,6 +173,177 @@ const HomePage = () => {
             </Button>
           </Box>
         </Box>
+      </Box>
+
+      {/* SECTION עיסויים */}
+      <Box sx={{ backgroundColor: "#111", px: { xs: 2, md: "58px" }, py: 6 }}>
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: "bold",
+            mb: 4,
+            textAlign: "right",
+            direction: "rtl",
+          }}
+        >
+          טיפולי עיסוי
+        </Typography>
+        {[
+          {
+            title: "עיסוי תאילנדי",
+            desc: "שחרור מתחים וחידוש אנרגיה עם תנועות מתיחה ולחיצה מסורתיות.",
+            img: "/thai-massage.jpg",
+          },
+          {
+            title: "עיסוי רקמות עמוק",
+            desc: "טיפול אינטנסיבי לשחרור שרירים תפוסים, מעמיק ומרפא.",
+            img: "/deep-tissue.jpg",
+          },
+          {
+            title: "עיסוי משולב",
+            desc: "שילוב טכניקות מותאם אישית לצרכים הפיזיים והנפשיים שלך.",
+            img: "/thai-massage.jpg",
+          },
+          {
+            title: "עיסוי אקוספורה רפואית",
+            desc: "טיפול רפואי חדשני המבוסס על גישה הוליסטית ומשקמת.",
+            img: "/thai-massage.jpg",
+          },
+        ].map((item, index) => (
+          <Box
+            key={index}
+            sx={{
+              display: "flex",
+              flexDirection: { xs: "column", md: "row-reverse" },
+              alignItems: "center",
+              mb: 6,
+              gap: 3,
+            }}
+          >
+            <Box
+              component="img"
+              src={item.img}
+              alt={item.title}
+              sx={{
+                width: { xs: "100%", md: "300px" },
+                height: "200px",
+                objectFit: "cover",
+                borderRadius: 2,
+              }}
+            />
+            <Box sx={{ flex: 1 }}>
+              <Typography
+                variant="h5"
+                sx={{
+                  fontWeight: "bold",
+                  mb: 1,
+                  textAlign: "right",
+                  direction: "rtl",
+                }}
+              >
+                {item.title}
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{ textAlign: "right", direction: "rtl" }}
+              >
+                {item.desc}
+              </Typography>
+            </Box>
+          </Box>
+        ))}
+      </Box>
+
+      {/* SECTION יוגה */}
+      <Box sx={{ backgroundColor: "#000", px: { xs: 2, md: "58px" }, py: 6 }}>
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: "bold",
+            mb: 4,
+            textAlign: "right",
+            direction: "rtl",
+          }}
+        >
+          שיעורי יוגה
+        </Typography>
+        {[
+          {
+            title: "יוגה קלאסית",
+            desc: "תרגול יסודות היוגה באיזון גוף ונשימה.",
+            img: "/yoga-basic.jpg",
+          },
+          {
+            title: "האטה יוגה",
+            desc: "תרגול איטי ומדויק לאיזון פיזי ומנטלי.",
+            img: "/yoga-hatha.jpg",
+          },
+          {
+            title: "ויניאסה",
+            desc: "תנועה זורמת בין תנוחות בקצב הנשימה.",
+            img: "/thai-massage.jpg",
+          },
+          {
+            title: "אשטנגה",
+            desc: "סדרה קבועה של תנוחות מאתגרות ואנרגטיות.",
+            img: "/yoga-ashtanga.jpg",
+          },
+          {
+            title: "יוגילאטיס",
+            desc: "שילוב חכם בין יוגה, גמישות, ויציבה של פילאטיס.",
+            img: "/yogilates.jpg",
+          },
+          {
+            title: "יוגה לגיל 3+ / יוגה כיסאות",
+            desc: "תרגולים מותאמים לילדים ולבני גיל הזהב עם תמיכה מלאה.",
+            img: "/yoga-chair-kids.jpg",
+          },
+        ].map((item, index) => (
+          <Box
+            key={index}
+            sx={{
+              display: "flex",
+              flexDirection: {
+                xs: "column",
+                md: index % 2 === 0 ? "row-reverse" : "row",
+              },
+              alignItems: "center",
+              mb: 6,
+              gap: 3,
+            }}
+          >
+            <Box
+              component="img"
+              src={item.img}
+              alt={item.title}
+              sx={{
+                width: { xs: "100%", md: "300px" },
+                height: "200px",
+                objectFit: "cover",
+                borderRadius: 2,
+              }}
+            />
+            <Box sx={{ flex: 1 }}>
+              <Typography
+                variant="h5"
+                sx={{
+                  fontWeight: "bold",
+                  mb: 1,
+                  textAlign: "right",
+                  direction: "rtl",
+                }}
+              >
+                {item.title}
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{ textAlign: "right", direction: "rtl" }}
+              >
+                {item.desc}
+              </Typography>
+            </Box>
+          </Box>
+        ))}
       </Box>
     </Box>
   );
