@@ -18,7 +18,6 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
-// **נעביר את כל הטקסטים לעברית**
 const navLinks = [
   { label: "דף הבית", path: "/" },
   { label: "אודות", path: "/about" },
@@ -35,7 +34,7 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // lisen לגלילה כדי לשנות צבע רקע + blur
+  // מאזין לגלילה כדי לשנות רקע + blur
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -48,17 +47,15 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // שחרור/סגירת ה־Drawer
   const handleDrawerToggle = () => {
     setMobileOpen((prev) => !prev);
   };
 
-  // התוכן שבתוך ה־Drawer (תפריט צד במובייל)
+  // תוכן ה-Drawer במובייל (שקוף + blur)
   const drawer = (
     <Box
       sx={{
         width: 240,
-        // שקוף + blur על כל המסך
         backgroundColor: "rgba(0,0,0,0.3)",
         backdropFilter: "blur(10px)",
         height: "100vh",
@@ -85,6 +82,7 @@ const Navbar = () => {
                       fontFamily: "Arial, sans-serif",
                       fontSize: "14px",
                       lineHeight: "17px",
+                      textAlign: "right", // RTL alignment
                     },
                   }}
                 />
@@ -101,7 +99,6 @@ const Navbar = () => {
       <AppBar
         position="fixed"
         sx={{
-          // אם גוללו מספיק, נוסיף רקע כהה + blur
           backgroundColor: scrolled ? "rgba(0, 0, 0, 0.8)" : "transparent",
           boxShadow: "none",
           backdropFilter: scrolled ? "blur(10px)" : "none",
@@ -118,72 +115,74 @@ const Navbar = () => {
           sx={{
             minHeight: "68px",
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "flex-end", // כל התוכן לצד ימין
+            alignItems: "center",
           }}
         >
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            {isMobile && (
-              <IconButton
-                color="inherit"
-                edge="start"
-                onClick={handleDrawerToggle}
-                sx={{ mr: 2 }}
-              >
-                <MenuIcon />
-              </IconButton>
-            )}
+          {/* 1) הלוגו – בצד הימני הכי */}
+          <Box
+            component="img"
+            src="/HaloLogo.jpg"
+            alt="לוגו"
+            sx={{
+              height: 40,
+              cursor: "pointer",
+              mr: isMobile ? 0 : 2, // רווח בין הלוגו לקישורים
+            }}
+            onClick={() => navigate("/")}
+          />
 
-            <Typography
+          {/* 2) בחלון רחב (לא מובייל) – הקישורים ליד הלוגו (לפי RTL) */}
+          {!isMobile && (
+            <Box
               sx={{
-                color: "#fff",
-                fontSize: { xs: "1.5rem", md: "2rem" },
-                fontWeight: "bold",
-                cursor: "pointer",
-                fontFamily: "Arial, sans-serif",
+                display: "flex",
+                alignItems: "center",
+                gap: "20px",
+                direction: "rtl", // כדי שהקישורים יתחילו מימין לשמאל
               }}
-              onClick={() => navigate("/")}
             >
-              ספא &amp; יוגה
-            </Typography>
-
-            {!isMobile && (
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "20px",
-                  ml: 2,
-                }}
-              >
-                {navLinks.map((link) => {
-                  const isActive = location.pathname === link.path;
-                  return (
-                    <NavLink
-                      key={link.label}
-                      to={link.path}
-                      style={{ textDecoration: "none" }}
+              {navLinks.map((link) => {
+                const isActive = location.pathname === link.path;
+                return (
+                  <NavLink
+                    key={link.label}
+                    to={link.path}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Typography
+                      sx={{
+                        cursor: "pointer",
+                        fontFamily: "Arial, sans-serif",
+                        fontSize: "14px",
+                        fontWeight: 400,
+                        lineHeight: "17px",
+                        color: isActive ? "#fff" : "#E5E5E5",
+                        opacity: isActive ? 1 : 0.8,
+                        transition: "opacity 0.3s ease",
+                        "&:hover": { opacity: 1 },
+                        textAlign: "right",
+                      }}
                     >
-                      <Typography
-                        sx={{
-                          cursor: "pointer",
-                          fontFamily: "Arial, sans-serif",
-                          fontSize: "14px",
-                          fontWeight: 400,
-                          lineHeight: "17px",
-                          color: isActive ? "#fff" : "#E5E5E5",
-                          opacity: isActive ? 1 : 0.8,
-                          transition: "opacity 0.3s ease",
-                          "&:hover": { opacity: 1 },
-                        }}
-                      >
-                        {link.label}
-                      </Typography>
-                    </NavLink>
-                  );
-                })}
-              </Box>
-            )}
-          </Box>
+                      {link.label}
+                    </Typography>
+                  </NavLink>
+                );
+              })}
+            </Box>
+          )}
+
+          {/* 3) אייקון התפריט למובייל */}
+          {isMobile && (
+            <IconButton
+              color="inherit"
+              edge="end"
+              onClick={handleDrawerToggle}
+              sx={{ ml: 1 }}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
         </Toolbar>
       </AppBar>
 

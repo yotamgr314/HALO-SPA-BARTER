@@ -3,22 +3,21 @@
 import React, { useState, useEffect } from "react";
 import { Box, Fade, Typography } from "@mui/material";
 
-// רשימת הכתובות של התמונות (ממוקמות ב-public)
+// כתובות התמונות (ממוקמות ישירות בתיקיית public)
 const coverImages = ["/spa1.png", "/spa2.png", "/yoga1.png"];
-
-// רשימת הטקסטים באנימציית typing
+// טקסטים לאנימציית ה־typing (RTL)
 const overlayTexts = ["רגעי ספא", "חווית יוגה", "הרגע והתחבר"];
 
-const CoverCarousel = ({ interval = 4000 }) => {
+const CoverCarousel = ({ interval = 5000 }) => {
   const [imageIndex, setImageIndex] = useState(0);
   const [showImage, setShowImage] = useState(true);
 
-  // STATES עבור אנימציית הטעינה (typing)
+  // STATES עבור אנימציית הטקסט (typing)
   const [textIndex, setTextIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // אפקט לסליידינג התמונות
+  // אפקט לסלייד של תמונות (2 שניות)
   useEffect(() => {
     if (coverImages.length < 2) return;
 
@@ -27,28 +26,26 @@ const CoverCarousel = ({ interval = 4000 }) => {
       setTimeout(() => {
         setImageIndex((prev) => (prev + 1) % coverImages.length);
         setShowImage(true);
-      }, 500); // זמן ה־fade-out
+      }, 500); // fade-out
     }, interval);
 
     return () => clearInterval(carouselInterval);
   }, [interval]);
 
-  // אפקט לאנימציית הטקסט (typing + deleting)
+  // אפקט typing/delete לטקסט
   useEffect(() => {
     const currentText = overlayTexts[textIndex % overlayTexts.length];
-    const delta = isDeleting ? 100 : 200; // מהירות הכתיבה/מחיקה
+    const delta = isDeleting ? 100 : 200;
 
     const typingTimeout = setTimeout(() => {
       if (!isDeleting) {
         setDisplayedText(currentText.substring(0, displayedText.length + 1));
         if (displayedText.length + 1 === currentText.length) {
-          // הגיעו לסוף הכתיבה, נעבור למחיקה אחרי הפסקה
           setTimeout(() => setIsDeleting(true), 1000);
         }
       } else {
         setDisplayedText(currentText.substring(0, displayedText.length - 1));
         if (displayedText.length - 1 === 0) {
-          // סיימנו למחוק, עוברים לטקסט הבא
           setIsDeleting(false);
           setTextIndex((prev) => prev + 1);
         }
@@ -67,7 +64,6 @@ const CoverCarousel = ({ interval = 4000 }) => {
         overflow: "hidden",
       }}
     >
-      {/* Slide לכל תמונה */}
       {coverImages.map((url, idx) => (
         <Fade
           key={idx}
@@ -90,7 +86,7 @@ const CoverCarousel = ({ interval = 4000 }) => {
         </Fade>
       ))}
 
-      {/* overlay כהה כדי להבליט את הטקסט */}
+      {/* overlay כהה למען קריאות הטקסט */}
       <Box
         sx={{
           position: "absolute",
@@ -103,15 +99,17 @@ const CoverCarousel = ({ interval = 4000 }) => {
         }}
       />
 
-      {/* אנימציית הטקסט במרכז */}
+      {/* אנימציית הטקסט – ימין לשמאל */}
       <Box
         sx={{
           position: "absolute",
           top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
+          right: "10%", // מרחק מהקצה הימני
+          transform: "translateY(-50%)",
           color: "#fff",
-          textAlign: "center",
+          textAlign: "right",
+          direction: "rtl",
+          pr: { xs: 2, md: 4 }, // ריווח מהצד
         }}
       >
         <Typography
@@ -137,7 +135,7 @@ const CoverCarousel = ({ interval = 4000 }) => {
         </Typography>
       </Box>
 
-      {/* keyframes ל־cursor המבהב */}
+      {/* keyframes ל־cursor מהבהב */}
       <style>
         {`
           @keyframes blink {

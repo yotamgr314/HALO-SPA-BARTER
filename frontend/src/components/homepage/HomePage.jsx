@@ -19,16 +19,18 @@ const HomePage = () => {
       <Box sx={{ position: "relative", width: "100%" }}>
         <Navbar />
 
-        {/* Carousel עם התמונות והאנימציית טקסט הכי */}
+        {/* Carousel עם תמונות (2 שניות) + אנימציית טקסט RTL */}
         <CoverCarousel interval={4000} />
 
-        {/* שכבת טקסט/כפתור על התמונה */}
+        {/* כיתוב מתחת לסליידר (אם רוצים להשאיר אותו) */}
         <Box
           sx={{
             position: "absolute",
             bottom: { xs: "10%", md: "20%" },
-            left: { xs: "5%", md: "10%" },
+            right: { xs: "5%", md: "10%" },
             color: "#fff",
+            textAlign: "right",
+            direction: "rtl",
           }}
         >
           <Typography
@@ -40,7 +42,7 @@ const HomePage = () => {
               fontFamily: "Arial, sans-serif",
             }}
           >
-            ברוכים הבאים לספא &amp; יוגה
+            ברוכים הבאים ל־Halo Spa &amp; Yoga
           </Typography>
           <Button
             variant="contained"
@@ -75,6 +77,8 @@ const HomePage = () => {
             fontWeight: "bold",
             mb: 2,
             fontFamily: "Arial, sans-serif",
+            textAlign: "right",
+            direction: "rtl",
           }}
         >
           השירותים שלנו
@@ -101,6 +105,8 @@ const HomePage = () => {
               sx={{
                 mb: 1,
                 fontFamily: "Arial, sans-serif",
+                textAlign: "right",
+                direction: "rtl",
               }}
             >
               טיפולי ספא
@@ -110,6 +116,8 @@ const HomePage = () => {
               sx={{
                 mb: 2,
                 fontFamily: "Arial, sans-serif",
+                textAlign: "right",
+                direction: "rtl",
               }}
             >
               מגוון טיפולי עיסויים, פציאלים וטיפולים לגוף שמרגיעים ומשקמים את
@@ -141,6 +149,8 @@ const HomePage = () => {
               sx={{
                 mb: 1,
                 fontFamily: "Arial, sans-serif",
+                textAlign: "right",
+                direction: "rtl",
               }}
             >
               שיעורי יוגה
@@ -150,6 +160,8 @@ const HomePage = () => {
               sx={{
                 mb: 2,
                 fontFamily: "Arial, sans-serif",
+                textAlign: "right",
+                direction: "rtl",
               }}
             >
               הצטרפו לשיעורי יוגה מודרכים לכל הרמות, ממתחילים ועד מתקדמים.
