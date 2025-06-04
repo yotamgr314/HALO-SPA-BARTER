@@ -129,12 +129,12 @@ const Navbar = () => {
             {/** 1) לוגו כ־background-image בתוך אלמנט עגול **/}
             <Box
               sx={{
-                width: 70, // רוחב התיבה המעוגלת
-                height: 65, // גובה התיבה המעוגלת
+                width: 75, // רוחב התיבה המעוגלת
+                height: 75, // גובה התיבה המעוגלת
                 borderRadius: "50%",
                 backgroundColor: "#fff",
                 backgroundImage: `url("/HaloLogo.jpg")`,
-                backgroundSize: "85%", // מרחיב את תוכן הלוגו, משאיר פער קטן מכל צד
+                backgroundSize: "95%", // מרחיב את תוכן הלוגו, משאיר פער קטן מכל צד
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
                 p: 0, // אין padding, משתמשים ב־backgroundSize כדי לשלוט בפער
@@ -210,6 +210,7 @@ const Navbar = () => {
       {/*** Drawer במובייל ***/}
       <Box component="nav">
         <Drawer
+          anchor="right" // <-- כאן קבענו שה־Drawer ייפתח מהצד הימני
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
