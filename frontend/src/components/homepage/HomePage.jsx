@@ -20,7 +20,7 @@ const HomePage = () => {
         <Navbar />
 
         {/* Carousel עם תמונות (4 שניות) + אנימציית טקסט RTL */}
-        <CoverCarousel interval={4000} />
+        <CoverCarousel interval={5000} />
 
         {/* כיתוב מתחת לסליידר */}
         <Box
