@@ -1,24 +1,90 @@
 // src/components/homepage/HomePage.jsx
 
 import React from "react";
-import { Box, Typography, Button } from "@mui/material";
+import {
+  Box,
+  Container,
+  Typography,
+  Button,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 import Navbar from "../shared/navbar";
 import CoverCarousel from "./CoverCarousel";
 
+// רשימות הטיפולים עם תיאור ממושך ותמונות גדולות
+const massageTreatments = [
+  {
+    name: "תאילנדי",
+    image: "thai-massage.jpg",
+    description:
+      "טיפול תאילנדי קלאסי המשתמש בלחיצות עמוקות ומתיחות ייחודיות כדי לשחרר מתחים ולהגביר את זרימת הדם בגוף. מתמקד בנקודות לחיצה ומקדם רוגע עמוק, משפר גמישות ושחרור שרירים עמוקים.",
+  },
+  {
+    name: "רקמות",
+    image: "thai-massage.jpg",
+    description:
+      "עיסוי רקמות עמוק מתבצע בלחיצות איטיות וחזקות על רקמות השריר העמוקות ביותר, לשחרור קשיחות כרונית ויצירת איזון ארגוני. מומלץ במיוחד למי שסובל מכאבים ממושכים ושחרור מתחים מתחת לפני השטח.",
+  },
+  {
+    name: "מושלב",
+    image: "thai-massage.jpg",
+    description:
+      "טיפול מכיל שילוב של טכניקות משיטות עיסוי שונות (שוודי, תאילנדי, רקמות), מותאם אישית למצב הגוף שלך באותו היום. מאפשר חיבור בין גוף לנפש עם תמהיל מותאם לכל הצורך הטיפולי.",
+  },
+  {
+    name: "אקוספורה רפואית",
+    image: "thai-massage.jpg",
+    description:
+      "טיפול אקוספורה רפואית, באמצעות גרגירים דקים המונחים על נקודות לחיצה בכפות הרגליים ובגוף, משחרר חסימות אנרגטיות ועוזר בהקלה בכאבים פנימיים. מבוסס על עקרונות הרפלקסולוגיה הרפואית.",
+  },
+];
+
+const yogaClasses = [
+  {
+    name: "האטה יוגה",
+    image: "yoga-basic.jpg",
+    description:
+      "יוגה האטה מתמקדת בתנועות איטיות ונשימה מודעת. כל תנוחה נשארת זמן ארוך יותר כדי לאפשר חיבור עמוק לגוף ולשחרור מתחים. מומלץ למתחילים ולמחפשים איזון ומודעות פנימית.",
+  },
+  {
+    name: "וינאסה",
+    image: "yoga-basic.jpg",
+    description:
+      "יוגה וינאסה היא סדרה דינמית של תנוחות העוברות בקצב נשימה אחיד. חיזוק שרירים, שיפור גמישות ושקט מנטלי באווירה אנרגטית. מתאים לכל מי שמחפש תרגול זרימה מרענן ואינטנסיבי.",
+  },
+  {
+    name: "אשטנגה",
+    image: "yoga-basic.jpg",
+    description:
+      "שיעור אשטנגה עוקב אחרי סדרת תנוחות קבוע במתן תשומת לב לכל מעבר. מתאים למתרגלים מנוסים המעוניינים באימון קרבי ואינטנסיבי, המסייע לפתח כוח, סיבולת ושיפור איזון גוף-נפש.",
+  },
+  {
+    name: "יוגילאטיס",
+    image: "yoga-basic.jpg",
+    description:
+      "שיטת יוגילאטיס משלבת תנועות יוגה עם עקרונות פילאטיס, לחיזוק שרירי הליבה, שיפור יציבה ויציבות. התרגול מיועד למי שמחפש אימון מתון אבל יעיל, המתמקד במודעות גוף ושייכות למרחב.",
+  },
+  {
+    name: "יוגה לגיל 60+ / יוגה כיסאות",
+    image: "yoga-basic.jpg",
+    description:
+      "שיעור יוגה מותאם לבני 60 ומעלה, המבוצע בעמדת כיסא או בתנוחות עדינות. שיפור טווח תנועה, ניידות והגמשת מפרקים, מבלי להעמיס על הגוף. אידיאלי להרגשה קלה ובטוחה עם תמיכה מלאה.",
+  },
+];
+
 const HomePage = () => {
+  const theme = useTheme();
+  const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
+
   return (
-    <Box
-      sx={{
-        backgroundColor: "#000",
-        color: "#fff",
-        minHeight: "100vh",
-        overflowX: "hidden",
-      }}
-    >
+    <Box sx={{ backgroundColor: "#000", color: "#fff", overflowX: "hidden" }}>
       {/* HERO / COVER SECTION */}
       <Box sx={{ position: "relative", width: "100%" }}>
         <Navbar />
+
         <CoverCarousel interval={5000} />
+
         <Box
           sx={{
             position: "absolute",
@@ -41,309 +107,184 @@ const HomePage = () => {
             ברוכים הבאים ל־Halo Massage &amp; Yoga
           </Typography>
           <Button
-            variant="contained"
+            component="a"
+            href="#massage-section"
             sx={{
+              mt: 1,
+              px: 3,
+              py: 1,
               backgroundColor: "rgba(255,255,255,0.8)",
               color: "#000",
               fontWeight: "bold",
               fontFamily: "Arial, sans-serif",
+              textDecoration: "none",
+              borderRadius: 1,
               "&:hover": { backgroundColor: "rgba(255,255,255,0.9)" },
             }}
-            href="#services"
           >
             למידע נוסף
           </Button>
         </Box>
       </Box>
 
-      {/* תפריט שירותים */}
+      {/* SECTION: טיפולי עיסוי */}
       <Box
-        id="services"
+        id="massage-section"
+        component="section"
         sx={{
-          px: { xs: 2, md: "58px" },
-          py: 4,
-          display: "flex",
-          flexDirection: "column",
-          gap: 4,
+          pt: { xs: 6, md: 10 },
+          pb: { xs: 4, md: 8 },
+          backgroundColor: "#111",
+          direction: "rtl",
         }}
       >
-        <Typography
-          variant="h4"
-          sx={{
-            fontWeight: "bold",
-            mb: 2,
-            fontFamily: "Arial, sans-serif",
-            textAlign: "right",
-            direction: "rtl",
-          }}
-        >
-          השירותים שלנו
-        </Typography>
-
-        <Box
-          sx={{
-            display: "grid",
-            gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
-            gap: 4,
-          }}
-        >
-          {/* קופסת מסאז' */}
-          <Box
+        <Container maxWidth="md">
+          <Typography
+            variant="h4"
             sx={{
-              backgroundColor: "#111",
-              borderRadius: 2,
-              p: 3,
-              "&:hover": { backgroundColor: "#222" },
+              fontWeight: "bold",
+              mb: { xs: 3, md: 5 },
+              textAlign: "right",
+              fontFamily: "Arial, sans-serif",
             }}
           >
-            <Typography
-              variant="h5"
-              sx={{
-                mb: 1,
-                fontFamily: "Arial, sans-serif",
-                textAlign: "right",
-                direction: "rtl",
-              }}
-            >
-              מסאז'ים
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{
-                mb: 2,
-                fontFamily: "Arial, sans-serif",
-                textAlign: "right",
-                direction: "rtl",
-              }}
-            >
-              מגוון טיפולי מסאז’ מרגיעים ומשקמים את הגוף והנפש.
-            </Typography>
-            <Button
-              variant="outlined"
-              sx={{
-                color: "#fff",
-                borderColor: "#fff",
-                fontFamily: "Arial, sans-serif",
-              }}
-            >
-              רשימת טיפולי מסאז'
-            </Button>
-          </Box>
+            טיפולי עיסוי
+          </Typography>
 
-          {/* קופסת יוגה */}
-          <Box
-            sx={{
-              backgroundColor: "#111",
-              borderRadius: 2,
-              p: 3,
-              "&:hover": { backgroundColor: "#222" },
-            }}
-          >
-            <Typography
-              variant="h5"
+          {massageTreatments.map((treatment, idx) => (
+            <Box
+              key={idx}
               sx={{
-                mb: 1,
-                fontFamily: "Arial, sans-serif",
-                textAlign: "right",
-                direction: "rtl",
+                display: "flex",
+                flexDirection: {
+                  xs: "column",
+                  md: idx % 2 === 0 ? "row" : "row-reverse",
+                },
+                mb: { xs: 4, md: 6 },
+                alignItems: "center",
+                gap: 3,
               }}
             >
-              שיעורי יוגה
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{
-                mb: 2,
-                fontFamily: "Arial, sans-serif",
-                textAlign: "right",
-                direction: "rtl",
-              }}
-            >
-              הצטרפו לשיעורי יוגה מודרכים לכל הרמות, ממתחילים ועד מתקדמים.
-            </Typography>
-            <Button
-              variant="outlined"
-              sx={{
-                color: "#fff",
-                borderColor: "#fff",
-                fontFamily: "Arial, sans-serif",
-              }}
-            >
-              לוח זמנים
-            </Button>
-          </Box>
-        </Box>
+              <Box
+                component="img"
+                src={treatment.image}
+                alt={treatment.name}
+                sx={{
+                  width: { xs: "100%", md: "50%" },
+                  height: { xs: 200, md: 400 },
+                  objectFit: "cover",
+                  borderRadius: 2,
+                  boxShadow: "0 4px 20px rgba(0,0,0,0.5)",
+                }}
+              />
+              <Box sx={{ width: { xs: "100%", md: "50%" } }}>
+                <Typography
+                  variant="h5"
+                  sx={{
+                    fontWeight: 700,
+                    mb: 1,
+                    textAlign: "right",
+                    fontFamily: "Arial, sans-serif",
+                    color: "#EDE6DB",
+                  }}
+                >
+                  {treatment.name}
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    fontFamily: "Arial, sans-serif",
+                    textAlign: "right",
+                    color: "#ccc",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {treatment.description}
+                </Typography>
+              </Box>
+            </Box>
+          ))}
+        </Container>
       </Box>
 
-      {/* SECTION עיסויים */}
-      <Box sx={{ backgroundColor: "#111", px: { xs: 2, md: "58px" }, py: 6 }}>
-        <Typography
-          variant="h4"
-          sx={{
-            fontWeight: "bold",
-            mb: 4,
-            textAlign: "right",
-            direction: "rtl",
-          }}
-        >
-          טיפולי עיסוי
-        </Typography>
-        {[
-          {
-            title: "עיסוי תאילנדי",
-            desc: "שחרור מתחים וחידוש אנרגיה עם תנועות מתיחה ולחיצה מסורתיות.",
-            img: "/thai-massage.jpg",
-          },
-          {
-            title: "עיסוי רקמות עמוק",
-            desc: "טיפול אינטנסיבי לשחרור שרירים תפוסים, מעמיק ומרפא.",
-            img: "/deep-tissue.jpg",
-          },
-          {
-            title: "עיסוי משולב",
-            desc: "שילוב טכניקות מותאם אישית לצרכים הפיזיים והנפשיים שלך.",
-            img: "/thai-massage.jpg",
-          },
-          {
-            title: "עיסוי אקוספורה רפואית",
-            desc: "טיפול רפואי חדשני המבוסס על גישה הוליסטית ומשקמת.",
-            img: "/thai-massage.jpg",
-          },
-        ].map((item, index) => (
-          <Box
-            key={index}
+      {/* SECTION: שיעורי יוגה */}
+      <Box
+        id="yoga-section"
+        component="section"
+        sx={{
+          pt: { xs: 6, md: 10 },
+          pb: { xs: 6, md: 10 },
+          backgroundColor: "#000",
+          direction: "rtl",
+        }}
+      >
+        <Container maxWidth="md">
+          <Typography
+            variant="h4"
             sx={{
-              display: "flex",
-              flexDirection: { xs: "column", md: "row-reverse" },
-              alignItems: "center",
-              mb: 6,
-              gap: 3,
+              fontWeight: "bold",
+              mb: { xs: 3, md: 5 },
+              textAlign: "right",
+              fontFamily: "Arial, sans-serif",
             }}
           >
-            <Box
-              component="img"
-              src={item.img}
-              alt={item.title}
-              sx={{
-                width: { xs: "100%", md: "300px" },
-                height: "200px",
-                objectFit: "cover",
-                borderRadius: 2,
-              }}
-            />
-            <Box sx={{ flex: 1 }}>
-              <Typography
-                variant="h5"
-                sx={{
-                  fontWeight: "bold",
-                  mb: 1,
-                  textAlign: "right",
-                  direction: "rtl",
-                }}
-              >
-                {item.title}
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{ textAlign: "right", direction: "rtl" }}
-              >
-                {item.desc}
-              </Typography>
-            </Box>
-          </Box>
-        ))}
-      </Box>
+            שיעורי יוגה
+          </Typography>
 
-      {/* SECTION יוגה */}
-      <Box sx={{ backgroundColor: "#000", px: { xs: 2, md: "58px" }, py: 6 }}>
-        <Typography
-          variant="h4"
-          sx={{
-            fontWeight: "bold",
-            mb: 4,
-            textAlign: "right",
-            direction: "rtl",
-          }}
-        >
-          שיעורי יוגה
-        </Typography>
-        {[
-          {
-            title: "יוגה קלאסית",
-            desc: "תרגול יסודות היוגה באיזון גוף ונשימה.",
-            img: "/yoga-basic.jpg",
-          },
-          {
-            title: "האטה יוגה",
-            desc: "תרגול איטי ומדויק לאיזון פיזי ומנטלי.",
-            img: "/yoga-hatha.jpg",
-          },
-          {
-            title: "ויניאסה",
-            desc: "תנועה זורמת בין תנוחות בקצב הנשימה.",
-            img: "/thai-massage.jpg",
-          },
-          {
-            title: "אשטנגה",
-            desc: "סדרה קבועה של תנוחות מאתגרות ואנרגטיות.",
-            img: "/yoga-ashtanga.jpg",
-          },
-          {
-            title: "יוגילאטיס",
-            desc: "שילוב חכם בין יוגה, גמישות, ויציבה של פילאטיס.",
-            img: "/yogilates.jpg",
-          },
-          {
-            title: "יוגה לגיל 3+ / יוגה כיסאות",
-            desc: "תרגולים מותאמים לילדים ולבני גיל הזהב עם תמיכה מלאה.",
-            img: "/yoga-chair-kids.jpg",
-          },
-        ].map((item, index) => (
-          <Box
-            key={index}
-            sx={{
-              display: "flex",
-              flexDirection: {
-                xs: "column",
-                md: index % 2 === 0 ? "row-reverse" : "row",
-              },
-              alignItems: "center",
-              mb: 6,
-              gap: 3,
-            }}
-          >
+          {yogaClasses.map((yoga, idx) => (
             <Box
-              component="img"
-              src={item.img}
-              alt={item.title}
+              key={idx}
               sx={{
-                width: { xs: "100%", md: "300px" },
-                height: "200px",
-                objectFit: "cover",
-                borderRadius: 2,
+                display: "flex",
+                flexDirection: {
+                  xs: "column",
+                  md: idx % 2 === 0 ? "row-reverse" : "row",
+                },
+                mb: { xs: 4, md: 6 },
+                alignItems: "center",
+                gap: 3,
               }}
-            />
-            <Box sx={{ flex: 1 }}>
-              <Typography
-                variant="h5"
+            >
+              <Box
+                component="img"
+                src={yoga.image}
+                alt={yoga.name}
                 sx={{
-                  fontWeight: "bold",
-                  mb: 1,
-                  textAlign: "right",
-                  direction: "rtl",
+                  width: { xs: "100%", md: "50%" },
+                  height: { xs: 200, md: 400 },
+                  objectFit: "cover",
+                  borderRadius: 2,
+                  boxShadow: "0 4px 20px rgba(0,0,0,0.5)",
                 }}
-              >
-                {item.title}
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{ textAlign: "right", direction: "rtl" }}
-              >
-                {item.desc}
-              </Typography>
+              />
+              <Box sx={{ width: { xs: "100%", md: "50%" } }}>
+                <Typography
+                  variant="h5"
+                  sx={{
+                    fontWeight: 700,
+                    mb: 1,
+                    textAlign: "right",
+                    fontFamily: "Arial, sans-serif",
+                    color: "#D4C4E2",
+                  }}
+                >
+                  {yoga.name}
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    fontFamily: "Arial, sans-serif",
+                    textAlign: "right",
+                    color: "#ccc",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {yoga.description}
+                </Typography>
+              </Box>
             </Box>
-          </Box>
-        ))}
+          ))}
+        </Container>
       </Box>
     </Box>
   );
