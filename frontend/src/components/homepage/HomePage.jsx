@@ -4,6 +4,7 @@ import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import Navbar from "../shared/navbar";
 import CoverCarousel from "./CoverCarousel";
+import Footer from "../shared/Footer";
 
 const HomePage = () => {
   return (
@@ -19,10 +20,10 @@ const HomePage = () => {
       <Box sx={{ position: "relative", width: "100%" }}>
         <Navbar />
 
-        {/* Carousel עם תמונות (2 שניות) + אנימציית טקסט RTL */}
+        {/* Carousel עם תמונות (4 שניות) + אנימציית טקסט RTL */}
         <CoverCarousel interval={4000} />
 
-        {/* כיתוב מתחת לסליידר (אם רוצים להשאיר אותו) */}
+        {/* כיתוב מתחת לסליידר */}
         <Box
           sx={{
             position: "absolute",
@@ -179,6 +180,9 @@ const HomePage = () => {
           </Box>
         </Box>
       </Box>
+
+      {/* מפת הגעה + פרטי יצירת קשר + הפוטר */}
+      <Footer />
     </Box>
   );
 };
