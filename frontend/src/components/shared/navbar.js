@@ -18,7 +18,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
-//  שמות הקישורים (סדר RTL)
+//  הקישורים בסדר RTL, עברית מלאה
 const navLinks = [
   { label: "חבילות ומחירים", path: "/packages" },
   { label: "ספא", path: "/spa" },
@@ -36,7 +36,7 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // מאזין לגלילה כדי לשנות רקע + blur
+  // מאזין לגלילה כדי להפעיל רקע כהה + blur
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -77,7 +77,7 @@ const Navbar = () => {
                         location.pathname === link.path ? "#fff" : "#E5E5E5",
                       fontWeight:
                         location.pathname === link.path ? "bold" : 400,
-                      fontFamily: "Nunito, Arial, sans-serif", // אפשר להשתמש ב־Nunito
+                      fontFamily: "Nunito, Arial, sans-serif",
                       fontSize: "16px",
                       lineHeight: "20px",
                       textAlign: "right",
@@ -105,8 +105,6 @@ const Navbar = () => {
           top: 0,
           left: 0,
           width: "100%",
-          px: { xs: 2, md: "58px" },
-          zIndex: 1300,
         }}
       >
         <Toolbar
@@ -114,11 +112,12 @@ const Navbar = () => {
           sx={{
             minHeight: "68px",
             display: "flex",
-            justifyContent: "space-between", // לוגו+טקסט משמאל, קישורים בימין
+            justifyContent: "space-between",
             alignItems: "center",
+            px: { xs: 2, md: "72px" }, // מרווח אופקי גדול יותר למסכים רחבים
           }}
         >
-          {/*** ===== צד שמאל: לוגו כתיבה+טקסט ===== ***/}
+          {/*** צד שמאל: לוגו + טקסט ***/}
           <Box
             sx={{
               display: "flex",
@@ -127,49 +126,46 @@ const Navbar = () => {
             }}
             onClick={() => navigate("/")}
           >
-            {/** 1) אלמנט הלוגו עם background-image **/}
+            {/** 1) לוגו כ־background-image בתוך אלמנט עגול **/}
             <Box
               sx={{
-                width: 64,
-                height: 64,
-                borderRadius: "50%", // עיגול
-                backgroundColor: "#fff", // רקע לבן מאחורי התמונה
-                backgroundImage: `url("/HaloLogo.jpg")`, // ודא שה־HaloLogo.png נמצא ב־public
+                width: 70, // הגדלנו מעט את המעגל
+                height: 65,
+                borderRadius: "50%",
+                backgroundColor: "#fff",
+                backgroundImage: `url("/HaloLogo.jpg")`,
                 backgroundSize: "contain",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
-                // אפשר להוסיף מעט פדינג כדי לאפשר “מרווח נשימה” אם צריך
-                // p: 0.5,
+                p: 0.1, // padding קטן (2px)
                 mr: 1,
-                // במידת הצורך להתאים רוחב גבוה יותר:
-                // width: 70, height: 70
               }}
             />
 
-            {/** 2) טקסט CTA - Halo Spa & Yoga **/}
+            {/** 2) טקסט קריא ליד הלוגו בעברית ולטינית מעורבת **/}
             <Typography
               variant="h6"
               sx={{
                 color: "#fff",
                 fontFamily: "Nunito, Arial, sans-serif",
                 fontSize: { xs: "1rem", md: "1.25rem" },
-                fontWeight: "700", // בולט יותר
-                letterSpacing: "1px", // ריווח אותיות קל
+                fontWeight: "700",
+                letterSpacing: "1px",
                 textTransform: "none",
               }}
             >
-              Halo Spa &amp; Yoga
+              Halo ספא &amp; יוגה
             </Typography>
           </Box>
 
-          {/*** ===== צד ימין: navLinks (בקצה הימני) או אייקון תמונה למובייל ===== ***/}
+          {/*** צד ימין: navLinks (PC) או אייקון למובייל ***/}
           {!isMobile ? (
             <Box
               sx={{
                 display: "flex",
                 alignItems: "center",
-                gap: "30px",
-                direction: "rtl", // RTL: מימין לשמאל
+                gap: "36px", // ריווח בין הקישורים
+                direction: "rtl",
               }}
             >
               {navLinks.map((link) => {
@@ -189,7 +185,10 @@ const Navbar = () => {
                         lineHeight: "22px",
                         color: isActive ? "#fff" : "#E5E5E5",
                         opacity: isActive ? 1 : 0.8,
-                        "&:hover": { opacity: 1, color: "#FFF" },
+                        "&:hover": {
+                          opacity: 1,
+                          textDecoration: "underline", // קו בעת ריחוף
+                        },
                         textAlign: "right",
                         direction: "rtl",
                       }}
@@ -208,7 +207,7 @@ const Navbar = () => {
         </Toolbar>
       </AppBar>
 
-      {/*** ===== Drawer במובייל ===== ***/}
+      {/*** Drawer במובייל ***/}
       <Box component="nav">
         <Drawer
           variant="temporary"
