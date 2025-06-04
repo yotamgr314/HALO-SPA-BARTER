@@ -18,7 +18,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
-// שמות הקישורים (סדר RTL)
+//  שמות הקישורים (סדר RTL)
 const navLinks = [
   { label: "חבילות ומחירים", path: "/packages" },
   { label: "ספא", path: "/spa" },
@@ -77,10 +77,10 @@ const Navbar = () => {
                         location.pathname === link.path ? "#fff" : "#E5E5E5",
                       fontWeight:
                         location.pathname === link.path ? "bold" : 400,
-                      fontFamily: "Arial, sans-serif",
+                      fontFamily: "Nunito, Arial, sans-serif", // אפשר להשתמש ב־Nunito
                       fontSize: "16px",
                       lineHeight: "20px",
-                      textAlign: "right", // RTL alignment
+                      textAlign: "right",
                       direction: "rtl",
                     },
                   }}
@@ -114,11 +114,11 @@ const Navbar = () => {
           sx={{
             minHeight: "68px",
             display: "flex",
-            justifyContent: "space-between", // לוגו+טקסט בשמאל, קישורים בימין
+            justifyContent: "space-between", // לוגו+טקסט משמאל, קישורים בימין
             alignItems: "center",
           }}
         >
-          {/* ===== צד שמאל: הלוגו המעוגל + טקסט מזמין ===== */}
+          {/*** ===== צד שמאל: לוגו כתיבה+טקסט ===== ***/}
           <Box
             sx={{
               display: "flex",
@@ -127,27 +127,34 @@ const Navbar = () => {
             }}
             onClick={() => navigate("/")}
           >
-            {/* 1) הלוגו המעוגל */}
+            {/** 1) אלמנט הלוגו עם background-image **/}
             <Box
-              component="img"
-              src="/HaloLogo.png" // ודא שהלוגו בשם זה נמצא בתיקיית public
-              alt="Halo Spa & Yoga"
               sx={{
-                height: 40,
-                width: 40,
-                borderRadius: "50%", // עיגול מלא
-                objectFit: "cover",
+                width: 64,
+                height: 64,
+                borderRadius: "50%", // עיגול
+                backgroundColor: "#fff", // רקע לבן מאחורי התמונה
+                backgroundImage: `url("/HaloLogo.jpg")`, // ודא שה־HaloLogo.png נמצא ב־public
+                backgroundSize: "contain",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                // אפשר להוסיף מעט פדינג כדי לאפשר “מרווח נשימה” אם צריך
+                // p: 0.5,
                 mr: 1,
+                // במידת הצורך להתאים רוחב גבוה יותר:
+                // width: 70, height: 70
               }}
             />
-            {/* 2) טקסט מזמין ליד הלוגו */}
+
+            {/** 2) טקסט CTA - Halo Spa & Yoga **/}
             <Typography
               variant="h6"
               sx={{
                 color: "#fff",
-                fontFamily: "Arial, sans-serif",
+                fontFamily: "Nunito, Arial, sans-serif",
                 fontSize: { xs: "1rem", md: "1.25rem" },
-                fontWeight: "bold",
+                fontWeight: "700", // בולט יותר
+                letterSpacing: "1px", // ריווח אותיות קל
                 textTransform: "none",
               }}
             >
@@ -155,7 +162,7 @@ const Navbar = () => {
             </Typography>
           </Box>
 
-          {/* ===== צד ימין: navLinks (בקצה הימני) או אייקון למובייל ===== */}
+          {/*** ===== צד ימין: navLinks (בקצה הימני) או אייקון תמונה למובייל ===== ***/}
           {!isMobile ? (
             <Box
               sx={{
@@ -176,13 +183,13 @@ const Navbar = () => {
                     <Typography
                       sx={{
                         cursor: "pointer",
-                        fontFamily: "Arial, sans-serif",
+                        fontFamily: "Nunito, Arial, sans-serif",
                         fontSize: "18px",
-                        fontWeight: isActive ? "bold" : 400,
+                        fontWeight: isActive ? "700" : 400,
                         lineHeight: "22px",
                         color: isActive ? "#fff" : "#E5E5E5",
                         opacity: isActive ? 1 : 0.8,
-                        "&:hover": { opacity: 1 },
+                        "&:hover": { opacity: 1, color: "#FFF" },
                         textAlign: "right",
                         direction: "rtl",
                       }}
@@ -201,7 +208,7 @@ const Navbar = () => {
         </Toolbar>
       </AppBar>
 
-      {/* Drawer במובייל */}
+      {/*** ===== Drawer במובייל ===== ***/}
       <Box component="nav">
         <Drawer
           variant="temporary"

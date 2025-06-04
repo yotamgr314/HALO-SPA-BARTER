@@ -1,5 +1,3 @@
-// src/components/homepage/CoverCarousel.jsx
-
 import React, { useState, useEffect } from "react";
 import { Box, Fade, Typography } from "@mui/material";
 
@@ -17,7 +15,7 @@ const CoverCarousel = ({ interval = 5000 }) => {
   const [displayedText, setDisplayedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // אפקט לסלייד של תמונות (2 שניות)
+  // אפקט לסלייד של תמונות (5 שניות)
   useEffect(() => {
     if (coverImages.length < 2) return;
 
@@ -99,17 +97,17 @@ const CoverCarousel = ({ interval = 5000 }) => {
         }}
       />
 
-      {/* אנימציית הטקסט – ימין לשמאל */}
+      {/* אנימציית הטקסט – גוון Soft Sand Beige (#EDE6DB) */}
       <Box
         sx={{
           position: "absolute",
           top: "50%",
-          right: "10%", // מרחק מהקצה הימני
+          right: "10%",
           transform: "translateY(-50%)",
-          color: "#fff",
+          color: "#EDE6DB",
           textAlign: "right",
           direction: "rtl",
-          pr: { xs: 2, md: 4 }, // ריווח מהצד
+          pr: { xs: 2, md: 4 },
         }}
       >
         <Typography
@@ -127,7 +125,7 @@ const CoverCarousel = ({ interval = 5000 }) => {
             sx={{
               display: "inline-block",
               width: "2px",
-              backgroundColor: "#fff",
+              backgroundColor: "#EDE6DB",
               marginLeft: "5px",
               animation: "blink 1s steps(2, start) infinite",
             }}
