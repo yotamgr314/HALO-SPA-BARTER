@@ -18,7 +18,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
-//  הקישורים בסדר RTL, עברית מלאה
+// הקישורים בסדר RTL, עברית מלאה
 const navLinks = [
   { label: "חבילות ומחירים", path: "/packages" },
   { label: "ספא", path: "/spa" },
@@ -129,15 +129,15 @@ const Navbar = () => {
             {/** 1) לוגו כ־background-image בתוך אלמנט עגול **/}
             <Box
               sx={{
-                width: 70, // הגדלנו מעט את המעגל
-                height: 65,
+                width: 70, // רוחב התיבה המעוגלת
+                height: 65, // גובה התיבה המעוגלת
                 borderRadius: "50%",
                 backgroundColor: "#fff",
                 backgroundImage: `url("/HaloLogo.jpg")`,
-                backgroundSize: "contain",
+                backgroundSize: "85%", // מרחיב את תוכן הלוגו, משאיר פער קטן מכל צד
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
-                p: 0.1, // padding קטן (2px)
+                p: 0, // אין padding, משתמשים ב־backgroundSize כדי לשלוט בפער
                 mr: 1,
               }}
             />
@@ -158,7 +158,7 @@ const Navbar = () => {
             </Typography>
           </Box>
 
-          {/*** צד ימין: navLinks (PC) או אייקון למובייל ***/}
+          {/*** צד ימין: navLinks (במצב PC) או אייקון תפריט (במצב מובייל) ***/}
           {!isMobile ? (
             <Box
               sx={{
@@ -187,7 +187,7 @@ const Navbar = () => {
                         opacity: isActive ? 1 : 0.8,
                         "&:hover": {
                           opacity: 1,
-                          textDecoration: "underline", // קו בעת ריחוף
+                          textDecoration: "underline", // קו תחתון בעת ריחוף
                         },
                         textAlign: "right",
                         direction: "rtl",
