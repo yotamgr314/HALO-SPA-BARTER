@@ -1,10 +1,37 @@
-import React from "react";
-import { Box, Container, Typography, Grid } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Container, Typography, Grid, Button, Modal } from "@mui/material";
+
+const events = [
+  {
+    name: "יוגה ארגונית",
+    description:
+      "תרגול מותאם למשרד או מרחב פתוח – לשחרור הגוף, שיפור הריכוז והפגת מתחים.",
+    details:
+      "יוגה ארגונית מספקת למשתתפים הפסקה מרעננת באמצע יום העבודה. תרגול מונחה לשחרור השרירים, נשימות מחברות, ומיקוד מנטלי. ניתן להתאים למשרדים קטנים או חללים פתוחים, וליצור תחושת רוגע וחיוביות בעבודה.",
+  },
+  {
+    name: "עיסוי קצר במקום",
+    description:
+      "פינות טיפול אישיות ביום כיף – עיסוי צוואר/גב על כיסא טיפולים.",
+    details:
+      "עיסויים קצרים ניתנים על כיסא טיפולים ללא צורך בהחלפת בגדים. טיפול קצר וממוקד באזור הצוואר, הגב או הכתפיים, שמרגיע את הגוף ונותן בוסט אנרגטי. מושלם לאירועים ארגוניים וימי גיבוש.",
+  },
+  {
+    name: "סדנאות נשימה והרפיה",
+    description:
+      "תכנים להרגעת סטרס, העלאת אנרגיה וחיבור בין המשתתפים. מתאים ל־outdoor או ישיבה במעגל.",
+    details:
+      "בסדנאות אנו מתרגלים נשימות מודעות, דמיון מודרך ומדיטציה – כדי להפיג מתחים ולהגביר את הקשב. הסדנה מתאימה למרחבים פתוחים, ימי גיבוש או תחילת יום עיון. משתתפים מדווחים על תחושת חידוש ומיקוד.",
+  },
+];
 
 const CompanyEvents = () => {
+  const [openModalIndex, setOpenModalIndex] = useState(null);
+  const handleOpenModal = (index) => setOpenModalIndex(index);
+  const handleCloseModal = () => setOpenModalIndex(null);
+
   return (
     <Box sx={{ backgroundColor: "#F4F2EA", py: 10, direction: "rtl" }}>
-      {" "}
       <Container maxWidth="lg">
         <Typography
           variant="h4"
@@ -36,41 +63,86 @@ const CompanyEvents = () => {
         </Typography>
 
         <Grid container spacing={4}>
-          <Grid item xs={12} md={4}>
-            <Typography
-              variant="h6"
-              sx={{ fontWeight: "bold", color: "#2E4057", mb: 1 }}
-            >
-              יוגה ארגונית
-            </Typography>
-            <Typography variant="body2" sx={{ color: "#555" }}>
-              תרגול מותאם למשרד או מרחב פתוח – לשחרור הגוף, שיפור הריכוז והפגת
-              מתחים.
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Typography
-              variant="h6"
-              sx={{ fontWeight: "bold", color: "#2E4057", mb: 1 }}
-            >
-              עיסוי קצר במקום
-            </Typography>
-            <Typography variant="body2" sx={{ color: "#555" }}>
-              פינות טיפול אישיות ביום כיף – עיסוי צוואר/גב על כיסא טיפולים.
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Typography
-              variant="h6"
-              sx={{ fontWeight: "bold", color: "#2E4057", mb: 1 }}
-            >
-              סדנאות נשימה והרפיה
-            </Typography>
-            <Typography variant="body2" sx={{ color: "#555" }}>
-              תכנים להרגעת סטרס, העלאת אנרגיה וחיבור בין המשתתפים. מתאים
-              ל־outdoor או ישיבה במעגל.
-            </Typography>
-          </Grid>
+          {events.map((event, idx) => {
+            const whatsappLink = `https://wa.me/972502919918?text=${encodeURIComponent(
+              `היי הגעתי אלייך דרך האתר ואשמח לתאם איורע חברה מסוג "${event.name}"`
+            )}`;
+
+            return (
+              <Grid item xs={12} md={4} key={event.name}>
+                <Typography
+                  variant="h6"
+                  sx={{ fontWeight: "bold", color: "#2E4057", mb: 1 }}
+                >
+                  {event.name}
+                </Typography>
+                <Typography variant="body2" sx={{ color: "#555", mb: 2 }}>
+                  {event.description}
+                </Typography>
+
+                <Box sx={{ display: "flex", gap: 1 }}>
+                  <Button
+                    variant="contained"
+                    href={whatsappLink}
+                    target="_blank"
+                    sx={{
+                      backgroundColor: "#25D366",
+                      fontWeight: "bold",
+                      fontSize: "0.8rem",
+                      "&:hover": { backgroundColor: "#1DA851" },
+                    }}
+                  >
+                    לקביעת תור
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    onClick={() => handleOpenModal(idx)}
+                    sx={{
+                      color: "#2E4057",
+                      borderColor: "#2E4057",
+                      fontSize: "0.8rem",
+                      "&:hover": {
+                        backgroundColor: "rgba(0,0,0,0.05)",
+                      },
+                    }}
+                  >
+                    רוצה לשמוע עוד
+                  </Button>
+                </Box>
+
+                {/* מודל */}
+                <Modal open={openModalIndex === idx} onClose={handleCloseModal}>
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%, -50%)",
+                      backgroundColor: "#fff",
+                      boxShadow: 24,
+                      borderRadius: 2,
+                      p: 4,
+                      width: { xs: "90%", md: 500 },
+                      direction: "rtl",
+                    }}
+                  >
+                    <Typography
+                      variant="h6"
+                      sx={{ mb: 2, fontWeight: "bold", textAlign: "center" }}
+                    >
+                      {event.name}
+                    </Typography>
+                    <Typography
+                      variant="body1"
+                      sx={{ fontSize: "1rem", color: "#444", lineHeight: 1.8 }}
+                    >
+                      {event.details}
+                    </Typography>
+                  </Box>
+                </Modal>
+              </Grid>
+            );
+          })}
         </Grid>
       </Container>
     </Box>
