@@ -6,6 +6,9 @@ import Footer from "./components/shared/Footer";
 import HomePage from "./components/homepage/HomePage";
 import MassagePage from "./components/massagePage/MassagePage";
 import YogaPage from "./components/YogaPage/YogaPage";
+import RetreatPage from "./components/retreatPage/retreatPage";
+import CompanyEvents from "./components/companyEventsPage/companyEvents";
+import PackagesPage from "./components/packagesPage/packagesPage";
 
 function App() {
   return (
@@ -24,6 +27,9 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/massage" element={<MassagePage />} />
             <Route path="/yoga" element={<YogaPage />} />
+            <Route path="/retreats" element={<RetreatPage />} />
+            <Route path="/company-events" element={<CompanyEvents />} />
+            <Route path="/packages" element={<PackagesPage />} />
           </Routes>
         </Box>
 
