@@ -170,7 +170,7 @@ const Footer = () => {
               lineHeight: 1.2,
             }}
           >
-            סוגי יוגה
+            שיעורי יוגה
           </Typography>
           <Typography variant="body2" sx={textStyle}>
             האטה יוגה – תרגול מרגיע ומדויק
