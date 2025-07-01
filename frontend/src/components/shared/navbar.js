@@ -18,11 +18,12 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 // הקישורים בסדר RTL, עברית מלאה
 const navLinks = [
-  { label: "חבילות ומחירים", path: "/packages" },
+  { label: "חבילות", path: "/packages" },
   { label: "עיסוי", path: "/massage" }, // שינינו מ־"ספא" ל־"עיסוי "
   { label: "יוגה", path: "/yoga" },
   { label: "גלריה", path: "/gallery" },
   { label: "צור קשר", path: "/contact" },
+  { label: "אירועים", path: "/events" },
 ];
 
 const Navbar = () => {
