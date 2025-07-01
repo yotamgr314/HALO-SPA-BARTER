@@ -25,51 +25,31 @@ const Footer = () => {
           gridTemplateColumns: {
             xs: "1fr",
             sm: "1fr 1fr",
-            md: "auto auto auto",
+            md: "repeat(6, auto)", // 6 עמודות עכשיו
           },
-          gap: { xs: 0.5, md: 0 },
-          mb: 1,
+          gap: { xs: 2, md: 3 },
+          mb: 2,
           direction: "rtl",
         }}
       >
-        {/* עמודה 1 */}
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            direction: "rtl",
-            p: 0,
-            m: 0,
-          }}
-        >
-          <Typography
-            variant="subtitle1"
-            sx={{
-              fontWeight: 600,
-              mb: 0,
-              pb: 0,
-              pt: 0,
-              color: "#fff",
-              fontFamily: "Nunito, Arial, sans-serif",
-              fontSize: "1rem",
-              lineHeight: 1.2,
-            }}
-          >
-            קצת עלינו
+        {/* עמודה 1 – צור קשר */}
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Typography variant="subtitle1" sx={columnTitleStyle}>
+            צור קשר
           </Typography>
-          <Link href="/faq" underline="none" sx={linkStyle}>
-            שאלות נפוצות
-          </Link>
-          <Link href="/testimonials" underline="none" sx={linkStyle}>
-            המלצות מלקוחות
-          </Link>
-          <Link href="/philosophy" underline="none" sx={linkStyle}>
-            פילוסופיית הטיפול שלי
-          </Link>
-          <Box sx={{ display: "flex", gap: 0.5, mt: 1 }}>
+          <Typography variant="body2" sx={textStyle}>
+            halo@yoga-massage.com
+          </Typography>
+          <Typography variant="body2" sx={textStyle}>
+            052-123-4567
+          </Typography>
+          <Typography variant="body2" sx={textStyle}>
+            תל אביב, ישראל
+          </Typography>
+          <Box sx={{ display: "flex", gap: 1, mt: 1 }}>
             <IconButton
               size="small"
-              sx={{ color: "#fff", p: 0, m: 0 }}
+              sx={{ color: "#fff", p: 0 }}
               component="a"
               href="https://www.facebook.com/halo.spayoga"
               target="_blank"
@@ -79,7 +59,7 @@ const Footer = () => {
             </IconButton>
             <IconButton
               size="small"
-              sx={{ color: "#fff", p: 0, m: 0 }}
+              sx={{ color: "#fff", p: 0 }}
               component="a"
               href="https://www.instagram.com/halo.spayoga"
               target="_blank"
@@ -89,9 +69,9 @@ const Footer = () => {
             </IconButton>
             <IconButton
               size="small"
-              sx={{ color: "#fff", p: 0, m: 0 }}
+              sx={{ color: "#fff", p: 0 }}
               component="a"
-              href="https://wa.me/972721234567"
+              href="https://wa.me/972521234567"
               target="_blank"
               rel="noopener"
             >
@@ -99,38 +79,18 @@ const Footer = () => {
             </IconButton>
             <IconButton
               size="small"
-              sx={{ color: "#fff", p: 0, m: 0 }}
+              sx={{ color: "#fff", p: 0 }}
               component="a"
-              href="/newsletter"
+              href="mailto:halo@yoga-massage.com"
             >
               <EmailIcon fontSize="small" />
             </IconButton>
           </Box>
         </Box>
 
-        {/* עמודה 2 */}
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            direction: "rtl",
-            p: 0,
-            m: 0,
-          }}
-        >
-          <Typography
-            variant="subtitle1"
-            sx={{
-              fontWeight: 600,
-              mb: 0,
-              pb: 0,
-              pt: 0,
-              color: "#fff",
-              fontFamily: "Nunito, Arial, sans-serif",
-              fontSize: "1rem",
-              lineHeight: 1.2,
-            }}
-          >
+        {/* עמודה 2 – סוגי עיסויים */}
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Typography variant="subtitle1" sx={columnTitleStyle}>
             סוגי עיסויים
           </Typography>
           <Typography variant="body2" sx={textStyle}>
@@ -147,53 +107,80 @@ const Footer = () => {
           </Typography>
         </Box>
 
-        {/* עמודה 3 */}
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            direction: "rtl",
-            p: 0,
-            m: 0,
-          }}
-        >
-          <Typography
-            variant="subtitle1"
-            sx={{
-              fontWeight: 600,
-              mb: 0,
-              pb: 0,
-              pt: 0,
-              color: "#fff",
-              fontFamily: "Nunito, Arial, sans-serif",
-              fontSize: "1rem",
-              lineHeight: 1.2,
-            }}
-          >
-            שיעורי יוגה
+        {/* עמודה 3 – סוגי יוגה */}
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Typography variant="subtitle1" sx={columnTitleStyle}>
+            סוגי יוגה
           </Typography>
           <Typography variant="body2" sx={textStyle}>
-            האטה יוגה – תרגול מרגיע ומדויק
+            האטה יוגה – תרגול מרגיע
           </Typography>
           <Typography variant="body2" sx={textStyle}>
-            ויניאסה – יוגה זורמת ונמרצת
+            ויניאסה – יוגה זורמת
           </Typography>
           <Typography variant="body2" sx={textStyle}>
-            אשטנגה – יוגה דינמית לפי סדר קבוע
+            אשטנגה – יוגה דינמית
           </Typography>
           <Typography variant="body2" sx={textStyle}>
-            יוגילאטיס – שילוב בין יוגה לפילאטיס
+            יוגילאטיס – יוגה + פילאטיס
           </Typography>
           <Typography variant="body2" sx={textStyle}>
-            יוגה לבני 60+ / יוגה בכיסאות
+            יוגה 60+ / כיסאות
           </Typography>
+        </Box>
+
+        {/* עמודה 4 – ריטריטים */}
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Typography variant="subtitle1" sx={columnTitleStyle}>
+            ריטריטים
+          </Typography>
+          <Link href="/retreats" underline="none" sx={linkStyle}>
+            ריטריטים בטבע
+          </Link>
+          <Link href="/retreats" underline="none" sx={linkStyle}>
+            יוגה ומדיטציה
+          </Link>
+          <Link href="/retreats" underline="none" sx={linkStyle}>
+            לינה ואירוח
+          </Link>
+        </Box>
+
+        {/* עמודה 5 – אירועי חברה */}
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Typography variant="subtitle1" sx={columnTitleStyle}>
+            אירועי חברה
+          </Typography>
+          <Link href="/company-events" underline="none" sx={linkStyle}>
+            יוגה ארגונית
+          </Link>
+          <Link href="/company-events" underline="none" sx={linkStyle}>
+            סדנאות הרפיה
+          </Link>
+          <Link href="/company-events" underline="none" sx={linkStyle}>
+            עיסוי במקום
+          </Link>
+        </Box>
+
+        {/* עמודה 6 – חבילות */}
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Typography variant="subtitle1" sx={columnTitleStyle}>
+            חבילות
+          </Typography>
+          <Link href="/packages" underline="none" sx={linkStyle}>
+            חבילת איזון
+          </Link>
+          <Link href="/packages" underline="none" sx={linkStyle}>
+            חבילת זוגית
+          </Link>
+          <Link href="/packages" underline="none" sx={linkStyle}>
+            פרימיום
+          </Link>
         </Box>
       </Box>
 
       <Box
         sx={{
           borderTop: "1px solid #333",
-          mt: 0,
           pt: 2,
           textAlign: "center",
           direction: "rtl",
@@ -213,13 +200,21 @@ const Footer = () => {
   );
 };
 
+const columnTitleStyle = {
+  fontWeight: 600,
+  mb: 1,
+  color: "#fff",
+  fontFamily: "Nunito, Arial, sans-serif",
+  fontSize: "1rem",
+  lineHeight: 1.2,
+};
+
 const linkStyle = {
-  mb: 0,
+  mb: 0.5,
   color: "#E0E0E0",
   fontFamily: "Nunito, Arial, sans-serif",
   fontSize: "0.875rem",
   lineHeight: 1.2,
-  p: 0,
   "&:hover": {
     color: "#fff",
     textDecoration: "underline",
@@ -227,7 +222,7 @@ const linkStyle = {
 };
 
 const textStyle = {
-  mb: 0,
+  mb: 0.5,
   color: "#E0E0E0",
   fontFamily: "Nunito, Arial, sans-serif",
   fontSize: "0.875rem",
