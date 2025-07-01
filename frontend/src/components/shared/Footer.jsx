@@ -8,6 +8,7 @@ import EmailIcon from "@mui/icons-material/Email";
 const Footer = () => {
   return (
     <Box
+      id="contact-section" // ← שורה חדשה שהוספנו
       component="footer"
       sx={{
         backgroundColor: "#141414",
