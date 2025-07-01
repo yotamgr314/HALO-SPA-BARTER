@@ -90,6 +90,10 @@ const Footer = () => {
 
         {/* עמודה 2 – סוגי עיסויים */}
         <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Typography variant="subtitle1" sx={columnTitleStyle}>
+            חבילות
+          </Typography>
+
           <Typography component="a" href="/massage#מושלב" sx={linkStyle}>
             עיסוי משולב מותאם אישית
           </Typography>
@@ -110,6 +114,10 @@ const Footer = () => {
 
         {/* עמודה 3 – סוגי יוגה */}
         <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Typography variant="subtitle1" sx={columnTitleStyle}>
+            חבילות
+          </Typography>
+
           <Typography component="a" href="/yoga#האטה יוגה" sx={linkStyle}>
             האטה יוגה – תרגול מרגיע
           </Typography>
