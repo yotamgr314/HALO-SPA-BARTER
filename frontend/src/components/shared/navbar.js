@@ -23,7 +23,7 @@ const navLinks = [
   { label: "ריטריטים", path: "/retreats" },
   { label: "אירועי חברה", path: "/company-events" },
   { label: "חבילות", path: "/packages" },
-  { label: "אודות", path: "/about me" },
+  { label: "אודות", path: "/#about-me-section" }, // ← עודכן
   { label: "צור קשר", path: "/contact" },
 ];
 
@@ -38,10 +38,8 @@ const Navbar = () => {
 
   const isHomePage = location.pathname === "/";
 
-  // מאזין לגלילה רק אם אנחנו בדף הבית
   useEffect(() => {
     if (!isHomePage) return;
-
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
@@ -64,34 +62,61 @@ const Navbar = () => {
       onClick={handleDrawerToggle}
     >
       <List>
-        {navLinks.map((link) => (
-          <NavLink
-            key={link.label}
-            to={link.path}
-            style={{ textDecoration: "none" }}
-          >
-            <ListItem disablePadding>
-              <ListItemButton selected={location.pathname === link.path}>
-                <ListItemText
-                  primary={link.label}
-                  primaryTypographyProps={{
-                    sx: {
-                      color:
-                        location.pathname === link.path ? "#fff" : "#E5E5E5",
-                      fontWeight:
-                        location.pathname === link.path ? "bold" : 400,
-                      fontFamily: "Nunito, Arial, sans-serif",
-                      fontSize: "16px",
-                      lineHeight: "20px",
-                      textAlign: "right",
-                      direction: "rtl",
-                    },
-                  }}
-                />
-              </ListItemButton>
-            </ListItem>
-          </NavLink>
-        ))}
+        {navLinks.map((link) =>
+          link.path.startsWith("/#") ? (
+            <a
+              key={link.label}
+              href={link.path}
+              style={{ textDecoration: "none" }}
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemText
+                    primary={link.label}
+                    primaryTypographyProps={{
+                      sx: {
+                        color: "#E5E5E5",
+                        fontWeight: 400,
+                        fontFamily: "Nunito, Arial, sans-serif",
+                        fontSize: "16px",
+                        lineHeight: "20px",
+                        textAlign: "right",
+                        direction: "rtl",
+                      },
+                    }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            </a>
+          ) : (
+            <NavLink
+              key={link.label}
+              to={link.path}
+              style={{ textDecoration: "none" }}
+            >
+              <ListItem disablePadding>
+                <ListItemButton selected={location.pathname === link.path}>
+                  <ListItemText
+                    primary={link.label}
+                    primaryTypographyProps={{
+                      sx: {
+                        color:
+                          location.pathname === link.path ? "#fff" : "#E5E5E5",
+                        fontWeight:
+                          location.pathname === link.path ? "bold" : 400,
+                        fontFamily: "Nunito, Arial, sans-serif",
+                        fontSize: "16px",
+                        lineHeight: "20px",
+                        textAlign: "right",
+                        direction: "rtl",
+                      },
+                    }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            </NavLink>
+          )
+        )}
       </List>
     </Box>
   );
@@ -124,13 +149,9 @@ const Navbar = () => {
             px: { xs: 2, md: "72px" },
           }}
         >
-          {/* צד שמאל: לוגו + טקסט */}
+          {/* לוגו + טקסט */}
           <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              cursor: "pointer",
-            }}
+            sx={{ display: "flex", alignItems: "center", cursor: "pointer" }}
             onClick={() => navigate("/")}
           >
             <Box
@@ -143,7 +164,6 @@ const Navbar = () => {
                 backgroundSize: "95%",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
-                p: 0,
                 mr: 1,
               }}
             />
@@ -155,26 +175,44 @@ const Navbar = () => {
                 fontSize: { xs: "1rem", md: "1.25rem" },
                 fontWeight: "700",
                 letterSpacing: "1px",
-                textTransform: "none",
               }}
             >
               Halo עיסוי & יוגה
             </Typography>
           </Box>
 
-          {/* צד ימין: קישורים או אייקון תפריט */}
+          {/* קישורים */}
           {!isMobile ? (
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: "36px",
-                direction: "rtl",
-              }}
-            >
+            <Box sx={{ display: "flex", gap: "36px", direction: "rtl" }}>
               {navLinks.map((link) => {
                 const isActive = location.pathname === link.path;
-                return (
+                return link.path.startsWith("/#") ? (
+                  <a
+                    key={link.label}
+                    href={link.path}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Typography
+                      sx={{
+                        cursor: "pointer",
+                        fontFamily: "Nunito, Arial, sans-serif",
+                        fontSize: "18px",
+                        fontWeight: 400,
+                        lineHeight: "22px",
+                        color: "#E5E5E5",
+                        opacity: 0.8,
+                        "&:hover": {
+                          opacity: 1,
+                          textDecoration: "underline",
+                        },
+                        textAlign: "right",
+                        direction: "rtl",
+                      }}
+                    >
+                      {link.label}
+                    </Typography>
+                  </a>
+                ) : (
                   <NavLink
                     key={link.label}
                     to={link.path}
@@ -227,7 +265,6 @@ const Navbar = () => {
               backgroundColor: "rgba(0,0,0,0.3)",
               backdropFilter: "blur(10px)",
               color: "#fff",
-              overflowX: "hidden",
             },
           }}
         >
