@@ -1,11 +1,23 @@
 // src/components/homepage/HomePage.jsx
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Typography, Button } from "@mui/material";
 import Navbar from "../shared/navbar";
 import CoverCarousel from "./CoverCarousel";
 
 const HomePage = () => {
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const el = document.querySelector(hash);
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth" });
+        }, 0);
+      }
+    }
+  }, []);
+
   return (
     <Box
       sx={{
@@ -63,7 +75,7 @@ const HomePage = () => {
               "&:hover": { backgroundColor: "rgba(255,255,255,0.95)" },
             }}
           >
-            טיפולי יוגה{" "}
+            טיפולי יוגה
           </Button>
         </Box>
       </Box>
