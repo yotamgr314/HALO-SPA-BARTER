@@ -12,6 +12,7 @@ import {
 const packages = [
   {
     name: "חבילת איזון",
+    image: "spa1.png",
     description: [
       "1 טיפול עיסוי מותאם אישית",
       "שיעור יוגה קבוצתי",
@@ -22,6 +23,7 @@ const packages = [
   },
   {
     name: "חבילת חוויה זוגית",
+    image: "spa2.png",
     description: [
       "עיסוי זוגי מפנק",
       "שיעור יוגה זוגי פרטי",
@@ -32,6 +34,7 @@ const packages = [
   },
   {
     name: "חבילת פרימיום",
+    image: "deep-tissue.jpg",
     description: [
       "3 עיסויים שונים",
       "2 שיעורי יוגה אישיים",
@@ -53,7 +56,7 @@ const PackagesPage = () => {
         backgroundColor: "#F9F7F1",
         py: 10,
         direction: "rtl",
-        minHeight: "100vh", // ✅ תיקון – הרקע משתרע על כל המסך
+        minHeight: "100vh",
       }}
     >
       <Container maxWidth="lg">
@@ -76,84 +79,105 @@ const PackagesPage = () => {
               `היי הגעתי אלייך דרך האתר ואשמח לקבוע תור ל"${pkg.name}"`
             )}`;
 
-            const paperBackground =
-              idx % 3 === 0 ? "#FFFFFF" : idx % 3 === 1 ? "#F4F2EA" : "#EFE9E0";
-
             return (
               <Grid item xs={12} md={4} key={pkg.name}>
                 <Paper
                   elevation={4}
                   sx={{
-                    p: 4,
+                    p: 0,
                     borderRadius: 2,
-                    backgroundColor: paperBackground,
+                    backgroundColor: "#FFFFFF",
+                    overflow: "hidden",
                     height: "100%",
                     display: "flex",
                     flexDirection: "column",
-                    justifyContent: "space-between",
                   }}
                 >
-                  <Box>
-                    <Typography
-                      variant="h6"
-                      sx={{
-                        fontWeight: "bold",
-                        color: "#2E4057",
-                        mb: 2,
-                        textAlign: "center",
-                      }}
-                    >
-                      {pkg.name}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{ color: "#555", lineHeight: 1.6, mb: 2 }}
-                    >
-                      {pkg.description.map((line, i) => (
-                        <span key={i}>
-                          ● {line}
-                          <br />
-                        </span>
-                      ))}
-                    </Typography>
-                  </Box>
+                  {/* תמונה */}
+                  <Box
+                    component="img"
+                    src={pkg.image}
+                    alt={pkg.name}
+                    sx={{
+                      width: "100%",
+                      height: 200,
+                      objectFit: "cover",
+                    }}
+                  />
 
+                  {/* תוכן */}
                   <Box
                     sx={{
+                      p: 3,
+                      flexGrow: 1,
                       display: "flex",
+                      flexDirection: "column",
                       justifyContent: "space-between",
-                      gap: 1,
                     }}
                   >
-                    <Button
-                      variant="contained"
-                      href={whatsappLink}
-                      target="_blank"
+                    <Box>
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          fontWeight: "bold",
+                          color: "#2E4057",
+                          mb: 2,
+                          textAlign: "center",
+                        }}
+                      >
+                        {pkg.name}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: "#555", lineHeight: 1.6, mb: 2 }}
+                      >
+                        {pkg.description.map((line, i) => (
+                          <span key={i}>
+                            ● {line}
+                            <br />
+                          </span>
+                        ))}
+                      </Typography>
+                    </Box>
+
+                    {/* כפתורים */}
+                    <Box
                       sx={{
-                        backgroundColor: "#25D366",
-                        fontWeight: "bold",
-                        fontSize: "0.8rem",
-                        flexGrow: 1,
-                        "&:hover": { backgroundColor: "#1DA851" },
+                        display: "flex",
+                        justifyContent: "space-between",
+                        gap: 1,
                       }}
                     >
-                      לקביעת תור
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      onClick={() => handleOpenModal(idx)}
-                      sx={{
-                        color: "#2E4057",
-                        borderColor: "#2E4057",
-                        fontSize: "0.8rem",
-                        flexGrow: 1,
-                        "&:hover": {
-                          backgroundColor: "rgba(0,0,0,0.05)",
-                        },
-                      }}
-                    >
-                      רוצה לשמוע עוד
-                    </Button>
+                      <Button
+                        variant="contained"
+                        href={whatsappLink}
+                        target="_blank"
+                        sx={{
+                          backgroundColor: "#25D366",
+                          fontWeight: "bold",
+                          fontSize: "0.8rem",
+                          flexGrow: 1,
+                          "&:hover": { backgroundColor: "#1DA851" },
+                        }}
+                      >
+                        לקביעת תור
+                      </Button>
+                      <Button
+                        variant="outlined"
+                        onClick={() => handleOpenModal(idx)}
+                        sx={{
+                          color: "#2E4057",
+                          borderColor: "#2E4057",
+                          fontSize: "0.8rem",
+                          flexGrow: 1,
+                          "&:hover": {
+                            backgroundColor: "rgba(0,0,0,0.05)",
+                          },
+                        }}
+                      >
+                        רוצה לשמוע עוד
+                      </Button>
+                    </Box>
                   </Box>
                 </Paper>
 
