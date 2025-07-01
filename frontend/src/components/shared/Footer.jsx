@@ -1,5 +1,3 @@
-// src/components/shared/Footer.jsx
-
 import React from "react";
 import { Box, Typography, IconButton, Link } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -25,7 +23,7 @@ const Footer = () => {
           gridTemplateColumns: {
             xs: "1fr",
             sm: "1fr 1fr",
-            md: "repeat(6, auto)", // 6 עמודות עכשיו
+            md: "repeat(6, auto)",
           },
           gap: { xs: 2, md: 3 },
           mb: 2,
@@ -88,8 +86,11 @@ const Footer = () => {
           </Box>
         </Box>
 
-        {/* עמודה 2 – סוגי עיסויים */}
+        {/* עמודה 2 – טיפולי עיסויים */}
         <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Typography variant="subtitle1" sx={columnTitleStyle}>
+            טיפולי עיסויים
+          </Typography>
           <Typography component="a" href="/massage#מושלב" sx={linkStyle}>
             עיסוי משולב מותאם אישית
           </Typography>
@@ -108,8 +109,11 @@ const Footer = () => {
           </Typography>
         </Box>
 
-        {/* עמודה 3 – סוגי יוגה */}
+        {/* עמודה 3 – שיעורי יוגה */}
         <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Typography variant="subtitle1" sx={columnTitleStyle}>
+            שיעורי יוגה
+          </Typography>
           <Typography component="a" href="/yoga#האטה יוגה" sx={linkStyle}>
             האטה יוגה – תרגול מרגיע
           </Typography>
@@ -136,13 +140,13 @@ const Footer = () => {
           <Typography variant="subtitle1" sx={columnTitleStyle}>
             ריטריטים
           </Typography>
-          <Link href="/retreats" underline="none" sx={linkStyle}>
+          <Link href="/retreats" sx={linkStyle}>
             ריטריטים בטבע
           </Link>
-          <Link href="/retreats" underline="none" sx={linkStyle}>
+          <Link href="/retreats" sx={linkStyle}>
             יוגה ומדיטציה
           </Link>
-          <Link href="/retreats" underline="none" sx={linkStyle}>
+          <Link href="/retreats" sx={linkStyle}>
             לינה ואירוח
           </Link>
         </Box>
@@ -152,13 +156,13 @@ const Footer = () => {
           <Typography variant="subtitle1" sx={columnTitleStyle}>
             אירועי חברה
           </Typography>
-          <Link href="/company-events" underline="none" sx={linkStyle}>
+          <Link href="/company-events" sx={linkStyle}>
             יוגה ארגונית
           </Link>
-          <Link href="/company-events" underline="none" sx={linkStyle}>
+          <Link href="/company-events" sx={linkStyle}>
             סדנאות הרפיה
           </Link>
-          <Link href="/company-events" underline="none" sx={linkStyle}>
+          <Link href="/company-events" sx={linkStyle}>
             עיסוי במקום
           </Link>
         </Box>
@@ -168,13 +172,13 @@ const Footer = () => {
           <Typography variant="subtitle1" sx={columnTitleStyle}>
             חבילות
           </Typography>
-          <Link href="/packages" underline="none" sx={linkStyle}>
+          <Link href="/packages" sx={linkStyle}>
             חבילת איזון
           </Link>
-          <Link href="/packages" underline="none" sx={linkStyle}>
+          <Link href="/packages" sx={linkStyle}>
             חבילת זוגית
           </Link>
-          <Link href="/packages" underline="none" sx={linkStyle}>
+          <Link href="/packages" sx={linkStyle}>
             פרימיום
           </Link>
         </Box>
@@ -217,9 +221,10 @@ const linkStyle = {
   fontFamily: "Nunito, Arial, sans-serif",
   fontSize: "0.875rem",
   lineHeight: 1.2,
+  textDecoration: "none",
   "&:hover": {
     color: "#fff",
-    textDecoration: "underline",
+    textDecoration: "none", // ← ביטול underline
   },
 };
 

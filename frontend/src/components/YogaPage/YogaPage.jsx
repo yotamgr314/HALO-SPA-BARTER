@@ -1,4 +1,6 @@
-import React from "react";
+// src/components/YogaPage/YogaPage.jsx
+
+import React, { useEffect } from "react";
 import {
   Box,
   Container,
@@ -45,6 +47,18 @@ const YogaPage = () => {
   const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
 
+  useEffect(() => {
+    const hash = decodeURIComponent(window.location.hash);
+    if (hash) {
+      const el = document.getElementById(hash.substring(1));
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 0);
+      }
+    }
+  }, []);
+
   return (
     <Box
       component="section"
@@ -82,6 +96,7 @@ const YogaPage = () => {
                 gap: { xs: 2, md: 4 },
               }}
             >
+              <Box id={yoga.name} /> {/* גלילה לפי id */}
               <Box
                 component="img"
                 src={yoga.image}
