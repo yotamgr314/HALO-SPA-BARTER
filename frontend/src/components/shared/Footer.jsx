@@ -200,7 +200,7 @@ const Footer = () => {
             fontFamily: "Nunito, Arial, sans-serif",
           }}
         >
-          © 2025 Halo Massage &amp; Yoga. כל הזכויות שמורות.
+          © 2025 Yotam Greenstein. האתר נבנה ע"י{" "}
         </Typography>
       </Box>
     </Box>
