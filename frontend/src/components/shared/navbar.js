@@ -16,15 +16,15 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
-// הקישורים בסדר RTL, עברית מלאה
+// קישורי ניווט כולל עוגנים פנימיים
 const navLinks = [
   { label: "יוגה", path: "/yoga" },
   { label: "עיסויים", path: "/massage" },
   { label: "ריטריטים", path: "/retreats" },
   { label: "אירועי חברה", path: "/company-events" },
   { label: "חבילות", path: "/packages" },
-  { label: "אודות", path: "/#about-me-section" }, // ← עודכן
-  { label: "צור קשר", path: "/contact" },
+  { label: "אודות", path: "/#about-me-section" },
+  { label: "צור קשר", path: "#contact-section" }, // ← כאן השינוי
 ];
 
 const Navbar = () => {
@@ -62,8 +62,10 @@ const Navbar = () => {
       onClick={handleDrawerToggle}
     >
       <List>
-        {navLinks.map((link) =>
-          link.path.startsWith("/#") ? (
+        {navLinks.map((link) => {
+          const isAnchorLink =
+            link.path.startsWith("#") || link.path.startsWith("/#");
+          return isAnchorLink ? (
             <a
               key={link.label}
               href={link.path}
@@ -115,8 +117,8 @@ const Navbar = () => {
                 </ListItemButton>
               </ListItem>
             </NavLink>
-          )
-        )}
+          );
+        })}
       </List>
     </Box>
   );
@@ -181,12 +183,15 @@ const Navbar = () => {
             </Typography>
           </Box>
 
-          {/* קישורים */}
+          {/* קישורים לשולחן עבודה */}
           {!isMobile ? (
             <Box sx={{ display: "flex", gap: "36px", direction: "rtl" }}>
               {navLinks.map((link) => {
                 const isActive = location.pathname === link.path;
-                return link.path.startsWith("/#") ? (
+                const isAnchorLink =
+                  link.path.startsWith("#") || link.path.startsWith("/#");
+
+                return isAnchorLink ? (
                   <a
                     key={link.label}
                     href={link.path}
