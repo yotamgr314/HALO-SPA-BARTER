@@ -1,4 +1,6 @@
-import React from "react";
+// src/components/massagePage/MassagePage.jsx
+
+import React, { useEffect } from "react";
 import {
   Box,
   Container,
@@ -13,31 +15,43 @@ const massageTreatments = [
     name: "תאילנדי",
     image: "thai-massage.jpg",
     description:
-      "טיפול תאילנדי קלאסי המשתמש בלחיצות עמוקות ומתיחות ייחודיות כדי לשחרר מתחים ולהגביר את זרימת הדם בגוף. מתמקד בנקודות לחיצה ומקדם רוגע עמוק, משפר גמישות ושחרור שרירים עמוקים.",
+      "טיפול תאילנדי קלאסי המשתמש בלחיצות עמוקות ומתיחות ייחודיות כדי לשחרר מתחים ולהגביר את זרימת הדם בגוף.",
   },
   {
     name: "רקמות",
     image: "thai-massage.jpg",
     description:
-      "עיסוי רקמות עמוק מתבצע בלחיצות איטיות ועוצמתיות על שכבות השריר העמוקות ביותר, לשחרור קשיחות כרונית ויצירת איזון פנימי. מומלץ במיוחד למי שסובל מכאבים ממושכים ושחרור מתחים מתחת לפני השטח.",
+      "עיסוי רקמות עמוק מתבצע בלחיצות איטיות ועוצמתיות על שכבות השריר העמוקות ביותר.",
   },
   {
     name: "מושלב",
     image: "thai-massage.jpg",
     description:
-      "טיפול מושלב המשלב טכניקות משיטות עיסוי שונות (שוודי, תאילנדי, רקמות) בהתאם לצרכים האישיים שלך באותו היום. מאפשר טיפול מקיף שמותאם למצב הגוף ולמטרה הטיפולית.",
+      "טיפול מושלב המשלב טכניקות משיטות עיסוי שונות בהתאם לצרכים האישיים שלך.",
   },
   {
     name: "אקוספורה רפואית",
     image: "thai-massage.jpg",
     description:
-      "טכניקת אקוספורה רפואית שמבוססת על כיסוי נקודות רפלקס בכפות הרגליים ובלחיצות עדינות על אזורים ספציפיים בגוף, לשחרור חסימות אנרגטיות וטיפול בכאבים פנימיים. מבוסס על עקרונות הרפלקסולוגיה.",
+      "טכניקה המבוססת על רפלקסולוגיה ונקודות מגע לשחרור חסימות אנרגטיות.",
   },
 ];
 
 const MassagePage = () => {
   const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
+
+  useEffect(() => {
+    const hash = decodeURIComponent(window.location.hash);
+    if (hash) {
+      const el = document.getElementById(hash.substring(1));
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 0);
+      }
+    }
+  }, []);
 
   return (
     <Box
@@ -76,6 +90,7 @@ const MassagePage = () => {
                 gap: { xs: 2, md: 4 },
               }}
             >
+              <Box id={treatment.name} /> {/* ID כאן */}
               <Box
                 component="img"
                 src={treatment.image}
