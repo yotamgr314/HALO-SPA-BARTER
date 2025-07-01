@@ -1,24 +1,19 @@
 // src/components/homepage/HomePage.jsx
 
 import React from "react";
-import {
-  Box,
-  Container,
-  Typography,
-  Button,
-  useTheme,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import Navbar from "../shared/navbar";
 import CoverCarousel from "./CoverCarousel";
 
 const HomePage = () => {
-  const theme = useTheme();
-  const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
-
   return (
     <Box
-      sx={{ backgroundColor: "#F4F2EA", color: "#333", overflowX: "hidden" }}
+      sx={{
+        backgroundColor: "#F4F2EA",
+        color: "#333",
+        overflowX: "hidden",
+        overflowY: "auto", // מאפשר גלילה אנכית
+      }}
     >
       {/* ============================================================================= */}
       {/* 1. NAVBAR + COVER CAROUSEL */}
@@ -86,7 +81,7 @@ const HomePage = () => {
           direction: "rtl",
         }}
       >
-        <Container maxWidth="md">
+        <Box sx={{ px: { xs: 2, md: 10 }, width: "100%" }}>
           <Typography
             variant="h4"
             sx={{
@@ -107,6 +102,8 @@ const HomePage = () => {
               textAlign: "right",
               fontFamily: "Arial, sans-serif",
               color: "#444",
+              width: { xs: "100%", md: "60%" },
+              ml: "auto",
             }}
           >
             שלום! אני מטפלת מוסמכת בעיסוי ושיעורי יוגה, מתוך אהבה אמיתית לריפוי
@@ -116,7 +113,7 @@ const HomePage = () => {
             באיזון עדין בין מגע, נשימה, ותודעה. אשמח ללוות אתכם במסע פנימי של
             ריפוי, שחרור, והתחדשות.
           </Typography>
-        </Container>
+        </Box>
       </Box>
     </Box>
   );
