@@ -90,41 +90,43 @@ const Footer = () => {
 
         {/* עמודה 2 – סוגי עיסויים */}
         <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <Typography variant="subtitle1" sx={columnTitleStyle}>
-            סוגי עיסויים
-          </Typography>
-          <Typography variant="body2" sx={textStyle}>
-            עיסוי תאילנדי מסורתי
-          </Typography>
-          <Typography variant="body2" sx={textStyle}>
-            עיסוי רקמות עמוק
-          </Typography>
-          <Typography variant="body2" sx={textStyle}>
+          <Typography component="a" href="/massage#מושלב" sx={linkStyle}>
             עיסוי משולב מותאם אישית
           </Typography>
-          <Typography variant="body2" sx={textStyle}>
+          <Typography component="a" href="/massage#רקמות" sx={linkStyle}>
+            עיסוי רקמות עמוק
+          </Typography>
+          <Typography component="a" href="/massage#תאילנדי" sx={linkStyle}>
+            עיסוי תאילנדי מסורתי
+          </Typography>
+          <Typography
+            component="a"
+            href="/massage#אקוספורה רפואית"
+            sx={linkStyle}
+          >
             אקוספורה רפואית לשחרור מתחים
           </Typography>
         </Box>
 
         {/* עמודה 3 – סוגי יוגה */}
         <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <Typography variant="subtitle1" sx={columnTitleStyle}>
-            סוגי יוגה
-          </Typography>
-          <Typography variant="body2" sx={textStyle}>
+          <Typography component="a" href="/yoga#האטה יוגה" sx={linkStyle}>
             האטה יוגה – תרגול מרגיע
           </Typography>
-          <Typography variant="body2" sx={textStyle}>
+          <Typography component="a" href="/yoga#וינאסה" sx={linkStyle}>
             ויניאסה – יוגה זורמת
           </Typography>
-          <Typography variant="body2" sx={textStyle}>
+          <Typography component="a" href="/yoga#אשטנגה" sx={linkStyle}>
             אשטנגה – יוגה דינמית
           </Typography>
-          <Typography variant="body2" sx={textStyle}>
+          <Typography component="a" href="/yoga#יוגילאטיס" sx={linkStyle}>
             יוגילאטיס – יוגה + פילאטיס
           </Typography>
-          <Typography variant="body2" sx={textStyle}>
+          <Typography
+            component="a"
+            href="/yoga#יוגה 60+ / כיסאות"
+            sx={linkStyle}
+          >
             יוגה 60+ / כיסאות
           </Typography>
         </Box>
