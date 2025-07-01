@@ -1,9 +1,21 @@
 import React, { useState } from "react";
-import { Box, Container, Typography, Grid, Button, Modal } from "@mui/material";
+import {
+  Box,
+  Container,
+  Typography,
+  Grid,
+  Button,
+  Modal,
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
+} from "@mui/material";
 
 const events = [
   {
     name: "יוגה ארגונית",
+    image: "eruiHevra.png",
     description:
       "תרגול מותאם למשרד או מרחב פתוח – לשחרור הגוף, שיפור הריכוז והפגת מתחים.",
     details:
@@ -11,6 +23,7 @@ const events = [
   },
   {
     name: "עיסוי קצר במקום",
+    image: "deep-tissue.jpg",
     description:
       "פינות טיפול אישיות ביום כיף – עיסוי צוואר/גב על כיסא טיפולים.",
     details:
@@ -18,6 +31,7 @@ const events = [
   },
   {
     name: "סדנאות נשימה והרפיה",
+    image: "eruiHevra.png",
     description:
       "תכנים להרגעת סטרס, העלאת אנרגיה וחיבור בין המשתתפים. מתאים ל־outdoor או ישיבה במעגל.",
     details:
@@ -62,55 +76,82 @@ const CompanyEvents = () => {
           סדנאות מגע, נשימות מודעות, ותכנים מרעננים לחיבור ותחושת שייכות.
         </Typography>
 
-        <Grid container spacing={4}>
+        <Grid container spacing={6}>
           {events.map((event, idx) => {
             const whatsappLink = `https://wa.me/972502919918?text=${encodeURIComponent(
-              `היי הגעתי אלייך דרך האתר ואשמח לתאם איורע חברה מסוג "${event.name}"`
+              `היי הגעתי אלייך דרך האתר ואשמח לתאם פעילות מסוג "${event.name}"`
             )}`;
 
             return (
               <Grid item xs={12} md={4} key={event.name}>
-                <Typography
-                  variant="h6"
-                  sx={{ fontWeight: "bold", color: "#2E4057", mb: 1 }}
+                <Card
+                  sx={{
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    borderRadius: 2,
+                    boxShadow: 3,
+                  }}
                 >
-                  {event.name}
-                </Typography>
-                <Typography variant="body2" sx={{ color: "#555", mb: 2 }}>
-                  {event.description}
-                </Typography>
+                  <CardMedia
+                    component="img"
+                    image={event.image}
+                    alt={event.name}
+                    height="180"
+                    sx={{ objectFit: "cover" }}
+                  />
 
-                <Box sx={{ display: "flex", gap: 1 }}>
-                  <Button
-                    variant="contained"
-                    href={whatsappLink}
-                    target="_blank"
+                  <CardContent sx={{ flexGrow: 1 }}>
+                    <Typography
+                      variant="h6"
+                      sx={{ fontWeight: "bold", color: "#2E4057", mb: 1 }}
+                    >
+                      {event.name}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: "#555" }}>
+                      {event.description}
+                    </Typography>
+                  </CardContent>
+
+                  <CardActions
                     sx={{
-                      backgroundColor: "#25D366",
-                      fontWeight: "bold",
-                      fontSize: "0.8rem",
-                      "&:hover": { backgroundColor: "#1DA851" },
+                      justifyContent: "space-between",
+                      px: 2,
+                      pb: 2,
+                      mt: "auto", // 🧠 מצמיד כפתורים לתחתית
                     }}
                   >
-                    לקביעת תור
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    onClick={() => handleOpenModal(idx)}
-                    sx={{
-                      color: "#2E4057",
-                      borderColor: "#2E4057",
-                      fontSize: "0.8rem",
-                      "&:hover": {
-                        backgroundColor: "rgba(0,0,0,0.05)",
-                      },
-                    }}
-                  >
-                    רוצה לשמוע עוד
-                  </Button>
-                </Box>
+                    <Button
+                      variant="contained"
+                      href={whatsappLink}
+                      target="_blank"
+                      sx={{
+                        backgroundColor: "#25D366",
+                        fontWeight: "bold",
+                        fontSize: "0.8rem",
+                        "&:hover": { backgroundColor: "#1DA851" },
+                      }}
+                    >
+                      לקביעת תור
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      onClick={() => handleOpenModal(idx)}
+                      sx={{
+                        color: "#2E4057",
+                        borderColor: "#2E4057",
+                        fontSize: "0.8rem",
+                        "&:hover": {
+                          backgroundColor: "rgba(0,0,0,0.05)",
+                        },
+                      }}
+                    >
+                      רוצה לשמוע עוד
+                    </Button>
+                  </CardActions>
+                </Card>
 
-                {/* מודל */}
+                {/* מודל פרטים נוספים */}
                 <Modal open={openModalIndex === idx} onClose={handleCloseModal}>
                   <Box
                     sx={{
