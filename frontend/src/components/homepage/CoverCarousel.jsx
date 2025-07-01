@@ -2,170 +2,257 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Fade, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-// כתובות התמונות (ממוקמות ישירות בתיקיית public)
-const coverImages = ["/spa1.png", "/spa2.png", "/yoga4.png"];
-// טקסטים לאנימציית ה־typing (RTL): עיסוי ויוגה
-const overlayTexts = ["עיסוי מרגיע", "חווית יוגה"];
+const massageImages = ["/spa1.png", "/spa2.png"];
+const yogaImages = ["/yoga1.jpg", "/yoga2.jpg", "/yoga4.png"];
+
+const massageTexts = ["עיסוי תאילנדי", "עיסוי רקמות", "עיסוי משולב"];
+const yogaTexts = ["יוגה מרגיעה", "יוגה ויניאסה", "יוגילאטיס"];
 
 const CoverCarousel = ({ interval = 5000 }) => {
-  const [imageIndex, setImageIndex] = useState(0);
-  const [showImage, setShowImage] = useState(true);
+  const navigate = useNavigate();
 
-  // STATES עבור אנימציית הטקסט (typing)
-  const [textIndex, setTextIndex] = useState(0);
-  const [displayedText, setDisplayedText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
+  // Massage state
+  const [massageIndex, setMassageIndex] = useState(0);
+  const [massageText, setMassageText] = useState("");
+  const [massageTextIdx, setMassageTextIdx] = useState(0);
+  const [massageDeleting, setMassageDeleting] = useState(false);
 
-  // ref בשביל לאגור timeout ולהשמיד כשמתנתקים
-  const typingTimeoutRef = useRef(null);
-  const carouselIntervalRef = useRef(null);
+  // Yoga state
+  const [yogaIndex, setYogaIndex] = useState(0);
+  const [yogaText, setYogaText] = useState("");
+  const [yogaTextIdx, setYogaTextIdx] = useState(0);
+  const [yogaDeleting, setYogaDeleting] = useState(false);
 
-  // אפקט לסלייד של תמונות (interval צבעי Fade)
+  const massageTimeoutRef = useRef(null);
+  const yogaTimeoutRef = useRef(null);
+
+  // Slide image change
   useEffect(() => {
-    if (coverImages.length < 2) return;
-
-    // כל חמש שניות עוברים תמונה
-    carouselIntervalRef.current = setInterval(() => {
-      setShowImage(false);
-      setTimeout(() => {
-        setImageIndex((prev) => (prev + 1) % coverImages.length);
-        setShowImage(true);
-      }, 600); // fade-out + fade-in
+    const massageInterval = setInterval(() => {
+      setMassageIndex((prev) => (prev + 1) % massageImages.length);
+    }, interval);
+    const yogaInterval = setInterval(() => {
+      setYogaIndex((prev) => (prev + 1) % yogaImages.length);
     }, interval);
 
     return () => {
-      clearInterval(carouselIntervalRef.current);
+      clearInterval(massageInterval);
+      clearInterval(yogaInterval);
     };
   }, [interval]);
 
-  // אפקט typing/delete לטקסט עם קצב נעים יותר
+  // Typing effect for massage
   useEffect(() => {
-    // ניקוי timeout קודם (אם קיים), לפני הגדרה של חדש
-    if (typingTimeoutRef.current) {
-      clearTimeout(typingTimeoutRef.current);
+    const current = massageTexts[massageTextIdx % massageTexts.length];
+    const speed = massageDeleting ? 60 : 130;
+    const delayAfterWrite = 2000;
+    const delayAfterDelete = 500;
+
+    if (massageTimeoutRef.current) clearTimeout(massageTimeoutRef.current);
+
+    if (!massageDeleting && massageText.length < current.length) {
+      massageTimeoutRef.current = setTimeout(() => {
+        setMassageText(current.substring(0, massageText.length + 1));
+      }, speed);
+    } else if (!massageDeleting && massageText === current) {
+      massageTimeoutRef.current = setTimeout(() => {
+        setMassageDeleting(true);
+      }, delayAfterWrite);
+    } else if (massageDeleting && massageText.length > 0) {
+      massageTimeoutRef.current = setTimeout(() => {
+        setMassageText(current.substring(0, massageText.length - 1));
+      }, speed);
+    } else if (massageDeleting && massageText.length === 0) {
+      massageTimeoutRef.current = setTimeout(() => {
+        setMassageDeleting(false);
+        setMassageTextIdx((prev) => prev + 1);
+      }, delayAfterDelete);
     }
 
-    const currentText = overlayTexts[textIndex % overlayTexts.length];
+    return () => clearTimeout(massageTimeoutRef.current);
+  }, [massageText, massageDeleting, massageTextIdx]);
 
-    // משתנים לגמישות הקצב
-    const typingSpeed = 130; // זמן בין תו לתו בהקלדה (ms)
-    const deletingSpeed = 60; // זמן בין תו לתו במחיקה (ms)
-    const pauseAfterWrite = 2500; // השהייה קצרה בסיום הכתיבה (ms)
-    const pauseAfterDelete = 400; // השהייה קצרה בסיום המחיקה (ms)
+  // Typing effect for yoga
+  useEffect(() => {
+    const current = yogaTexts[yogaTextIdx % yogaTexts.length];
+    const speed = yogaDeleting ? 60 : 130;
+    const delayAfterWrite = 2000;
+    const delayAfterDelete = 500;
 
-    if (!isDeleting && displayedText.length < currentText.length) {
-      // אם עדיין לא סיימנו להקליד את כל הטקסט -> מוסיפים עוד תו
-      typingTimeoutRef.current = setTimeout(() => {
-        setDisplayedText(currentText.substring(0, displayedText.length + 1));
-      }, typingSpeed);
-    } else if (!isDeleting && displayedText.length === currentText.length) {
-      // אם סיימנו להקליד את הטקסט: חכה לפאוז קצר, ואז נתחיל למחוק
-      typingTimeoutRef.current = setTimeout(() => {
-        setIsDeleting(true);
-      }, pauseAfterWrite);
-    } else if (isDeleting && displayedText.length > 0) {
-      // אם בעיצומו של תהליך מחיקה -> מוחקים תו
-      typingTimeoutRef.current = setTimeout(() => {
-        setDisplayedText(currentText.substring(0, displayedText.length - 1));
-      }, deletingSpeed);
-    } else if (isDeleting && displayedText.length === 0) {
-      // אם סיימנו למחוק לחלוטין -> חכה מעט, ואז עבור לטקסט הבא ונתחיל להקליד
-      typingTimeoutRef.current = setTimeout(() => {
-        setIsDeleting(false);
-        setTextIndex((prev) => prev + 1);
-      }, pauseAfterDelete);
+    if (yogaTimeoutRef.current) clearTimeout(yogaTimeoutRef.current);
+
+    if (!yogaDeleting && yogaText.length < current.length) {
+      yogaTimeoutRef.current = setTimeout(() => {
+        setYogaText(current.substring(0, yogaText.length + 1));
+      }, speed);
+    } else if (!yogaDeleting && yogaText === current) {
+      yogaTimeoutRef.current = setTimeout(() => {
+        setYogaDeleting(true);
+      }, delayAfterWrite);
+    } else if (yogaDeleting && yogaText.length > 0) {
+      yogaTimeoutRef.current = setTimeout(() => {
+        setYogaText(current.substring(0, yogaText.length - 1));
+      }, speed);
+    } else if (yogaDeleting && yogaText.length === 0) {
+      yogaTimeoutRef.current = setTimeout(() => {
+        setYogaDeleting(false);
+        setYogaTextIdx((prev) => prev + 1);
+      }, delayAfterDelete);
     }
 
-    return () => {
-      clearTimeout(typingTimeoutRef.current);
-    };
-  }, [displayedText, isDeleting, textIndex]);
+    return () => clearTimeout(yogaTimeoutRef.current);
+  }, [yogaText, yogaDeleting, yogaTextIdx]);
 
   return (
     <Box
       sx={{
-        position: "relative",
+        display: "flex",
         width: "100%",
         height: { xs: "250px", md: "500px" },
         overflow: "hidden",
       }}
     >
-      {coverImages.map((url, idx) => (
-        <Fade
-          key={idx}
-          in={idx === imageIndex && showImage}
-          timeout={{ enter: 600, exit: 600 }}
-        >
+      {/* Massage Half */}
+      <Box
+        onClick={() => navigate("/massage")}
+        sx={{
+          position: "relative",
+          width: "50%",
+          height: "100%",
+          cursor: "pointer",
+        }}
+      >
+        <Fade in timeout={600}>
           <Box
             component="img"
-            src={url}
-            alt={`Slide ${idx + 1}`}
+            src={massageImages[massageIndex]}
+            alt="massage"
             sx={{
               position: "absolute",
-              top: 0,
-              left: 0,
               width: "100%",
               height: "100%",
               objectFit: "cover",
             }}
           />
         </Fade>
-      ))}
-
-      {/* overlay כהה למען קריאות הטקסט */}
-      <Box
-        sx={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          background:
-            "linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.5))",
-        }}
-      />
-
-      {/* אנימציית הטקסט בצבע Lavender Mist (#D4C4E2), מודגש וזורם */}
-      <Box
-        sx={{
-          position: "absolute",
-          top: "50%",
-          right: "10%",
-          transform: "translateY(-50%)",
-          color: "#D4C4E2",
-          textAlign: "right",
-          direction: "rtl",
-          pr: { xs: 2, md: 4 },
-        }}
-      >
-        <Typography
-          variant="h3"
+        <Box
           sx={{
-            fontFamily: "Arial, sans-serif",
-            fontWeight: 900, // מודגש מאוד
-            fontSize: { xs: "1.5rem", md: "3rem" },
-            minHeight: { xs: "2rem", md: "4rem" },
-            lineHeight: 1.1,
-            textShadow: "2px 2px 4px rgba(0,0,0,0.7)",
-            whiteSpace: "nowrap", // למנוע קו שבירה
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            background:
+              "linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.5))",
+            zIndex: 1,
+          }}
+        />
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            right: "10%",
+            transform: "translateY(-50%)",
+            color: "#D4C4E2",
+            textAlign: "right",
+            direction: "rtl",
+            zIndex: 2,
           }}
         >
-          {displayedText}
-          <Box
-            component="span"
+          <Typography
+            variant="h3"
             sx={{
-              display: "inline-block",
-              width: "2px",
-              backgroundColor: "#D4C4E2",
-              marginLeft: "5px",
-              animation: "blink 1s steps(2, start) infinite",
+              fontWeight: 900,
+              fontSize: { xs: "1.5rem", md: "2.5rem" },
+              textShadow: "2px 2px 4px rgba(0,0,0,0.7)",
+              whiteSpace: "nowrap",
             }}
-          />
-        </Typography>
+          >
+            {massageText}
+            <Box
+              component="span"
+              sx={{
+                display: "inline-block",
+                width: "2px",
+                backgroundColor: "#D4C4E2",
+                marginLeft: "5px",
+                animation: "blink 1s steps(2, start) infinite",
+              }}
+            />
+          </Typography>
+        </Box>
       </Box>
 
-      {/* keyframes ל־cursor מהבהב */}
+      {/* Yoga Half */}
+      <Box
+        onClick={() => navigate("/yoga")}
+        sx={{
+          position: "relative",
+          width: "50%",
+          height: "100%",
+          cursor: "pointer",
+        }}
+      >
+        <Fade in timeout={600}>
+          <Box
+            component="img"
+            src={yogaImages[yogaIndex]}
+            alt="yoga"
+            sx={{
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+          />
+        </Fade>
+        <Box
+          sx={{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            background:
+              "linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.5))",
+            zIndex: 1,
+          }}
+        />
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            right: "10%",
+            transform: "translateY(-50%)",
+            color: "#D4C4E2",
+            textAlign: "right",
+            direction: "rtl",
+            zIndex: 2,
+          }}
+        >
+          <Typography
+            variant="h3"
+            sx={{
+              fontWeight: 900,
+              fontSize: { xs: "1.5rem", md: "2.5rem" },
+              textShadow: "2px 2px 4px rgba(0,0,0,0.7)",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {yogaText}
+            <Box
+              component="span"
+              sx={{
+                display: "inline-block",
+                width: "2px",
+                backgroundColor: "#D4C4E2",
+                marginLeft: "5px",
+                animation: "blink 1s steps(2, start) infinite",
+              }}
+            />
+          </Typography>
+        </Box>
+      </Box>
+
+      {/* CSS for blinking cursor */}
       <style>
         {`
           @keyframes blink {
