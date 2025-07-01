@@ -51,7 +51,7 @@ const YogaPage = () => {
       sx={{
         pt: 10,
         pb: 10,
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "#F4F2EA",
         direction: "rtl",
       }}
     >
@@ -108,7 +108,7 @@ const YogaPage = () => {
                     mb: 1,
                     textAlign: "right",
                     fontFamily: "Arial, sans-serif",
-                    color: "#2E4057",
+                    color: "#6C4F3B",
                   }}
                 >
                   {yoga.name}

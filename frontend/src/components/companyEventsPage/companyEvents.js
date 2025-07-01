@@ -3,7 +3,8 @@ import { Box, Container, Typography, Grid } from "@mui/material";
 
 const CompanyEvents = () => {
   return (
-    <Box sx={{ backgroundColor: "#FFFFFF", py: 10, direction: "rtl" }}>
+    <Box sx={{ backgroundColor: "#F4F2EA", py: 10, direction: "rtl" }}>
+      {" "}
       <Container maxWidth="lg">
         <Typography
           variant="h4"
