@@ -63,7 +63,7 @@ const YogaPage = () => {
             mb: 6,
             textAlign: "right",
             fontFamily: "Arial, sans-serif",
-            color: "#333",
+            color: "#6C4F3B",
           }}
         >
           שיעורי יוגה

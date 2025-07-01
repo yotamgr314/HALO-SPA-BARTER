@@ -36,20 +36,23 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // מאזין לגלילה כדי להפעיל רקע כהה + blur
+  const isHomePage = location.pathname === "/";
+
+  // מאזין לגלילה רק אם אנחנו בדף הבית
   useEffect(() => {
+    if (!isHomePage) return;
+
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isHomePage]);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prev) => !prev);
   };
 
-  // תוכן ה־Drawer במובייל (שקוף + blur)
   const drawer = (
     <Box
       sx={{
@@ -98,9 +101,13 @@ const Navbar = () => {
       <AppBar
         position="fixed"
         sx={{
-          backgroundColor: scrolled ? "rgba(0, 0, 0, 0.8)" : "transparent",
+          backgroundColor: isHomePage
+            ? scrolled
+              ? "rgba(0, 0, 0, 0.8)"
+              : "transparent"
+            : "#141414",
           boxShadow: "none",
-          backdropFilter: scrolled ? "blur(10px)" : "none",
+          backdropFilter: isHomePage && scrolled ? "blur(10px)" : "none",
           transition: "background-color 0.3s ease, backdrop-filter 0.3s ease",
           top: 0,
           left: 0,
@@ -114,10 +121,10 @@ const Navbar = () => {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            px: { xs: 2, md: "72px" }, // מרווח אופקי גדול יותר למסכים רחבים
+            px: { xs: 2, md: "72px" },
           }}
         >
-          {/*** צד שמאל: לוגו + טקסט ***/}
+          {/* צד שמאל: לוגו + טקסט */}
           <Box
             sx={{
               display: "flex",
@@ -126,23 +133,20 @@ const Navbar = () => {
             }}
             onClick={() => navigate("/")}
           >
-            {/** 1) לוגו כ־background-image בתוך אלמנט עגול **/}
             <Box
               sx={{
-                width: 75, // רוחב התיבה המעוגלת
-                height: 75, // גובה התיבה המעוגלת
+                width: 75,
+                height: 75,
                 borderRadius: "50%",
                 backgroundColor: "#fff",
                 backgroundImage: `url("/HaloLogo.jpg")`,
-                backgroundSize: "95%", // מרחיב את תוכן הלוגו, משאיר פער קטן מכל צד
+                backgroundSize: "95%",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
-                p: 0, // אין padding, משתמשים ב־backgroundSize כדי לשלוט בפער
+                p: 0,
                 mr: 1,
               }}
             />
-
-            {/** 2) טקסט קריא ליד הלוגו בעברית ולטינית מעורבת **/}
             <Typography
               variant="h6"
               sx={{
@@ -154,17 +158,17 @@ const Navbar = () => {
                 textTransform: "none",
               }}
             >
-              Halo עיסוי &amp; יוגה
+              Halo עיסוי & יוגה
             </Typography>
           </Box>
 
-          {/*** צד ימין: navLinks (במצב PC) או אייקון תפריט (במצב מובייל) ***/}
+          {/* צד ימין: קישורים או אייקון תפריט */}
           {!isMobile ? (
             <Box
               sx={{
                 display: "flex",
                 alignItems: "center",
-                gap: "36px", // ריווח בין הקישורים
+                gap: "36px",
                 direction: "rtl",
               }}
             >
@@ -187,7 +191,7 @@ const Navbar = () => {
                         opacity: isActive ? 1 : 0.8,
                         "&:hover": {
                           opacity: 1,
-                          textDecoration: "underline", // קו תחתון בעת ריחוף
+                          textDecoration: "underline",
                         },
                         textAlign: "right",
                         direction: "rtl",
@@ -207,10 +211,10 @@ const Navbar = () => {
         </Toolbar>
       </AppBar>
 
-      {/*** Drawer במובייל ***/}
+      {/* Drawer במובייל */}
       <Box component="nav">
         <Drawer
-          anchor="right" // <-- כאן קבענו שה־Drawer ייפתח מהצד הימני
+          anchor="right"
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}

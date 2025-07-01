@@ -57,7 +57,7 @@ const MassagePage = () => {
             mb: 6,
             textAlign: "right",
             fontFamily: "Arial, sans-serif",
-            color: "#333",
+            color: "#6C4F3B",
           }}
         >
           טיפולי עיסוי
