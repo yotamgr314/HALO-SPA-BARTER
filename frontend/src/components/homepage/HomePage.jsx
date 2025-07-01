@@ -57,7 +57,7 @@ const HomePage = () => {
               textShadow: "2px 2px 6px rgba(0,0,0,0.7)",
             }}
           >
-            ברוכים הבאים Halo מסאז' & יוגה
+            Yoga & Massage - Halo
           </Typography>
           <Button
             component="a"
