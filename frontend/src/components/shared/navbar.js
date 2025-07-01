@@ -20,8 +20,8 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 const navLinks = [
   { label: "יוגה", path: "/yoga" },
   { label: "עיסויים", path: "/massage" },
-  { label: "ריטריטים", path: "/retreat" },
-  { label: "אירועי חברה", path: "/CompanyEvents" },
+  { label: "ריטריטים", path: "/retreats" },
+  { label: "אירועי חברה", path: "/company-events" },
   { label: "חבילות", path: "/packages" },
   { label: "אודות", path: "/about me" },
   { label: "צור קשר", path: "/contact" },
