@@ -111,7 +111,7 @@ const HomePage = () => {
             variant="h3"
             sx={{
               fontWeight: "bold",
-              mb: 1,
+              mb: 20,
               fontSize: { xs: "1.5rem", md: "3rem" },
               fontFamily: "Arial, sans-serif",
               textShadow: "2px 2px 6px rgba(0,0,0,0.7)",

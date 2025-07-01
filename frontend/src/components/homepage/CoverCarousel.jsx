@@ -1,7 +1,7 @@
 // src/components/homepage/CoverCarousel.jsx
 
 import React, { useState, useEffect, useRef } from "react";
-import { Box, Fade, Typography } from "@mui/material";
+import { Box, Fade, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const massageImages = ["/spa1.png", "/spa2.png"];
@@ -13,14 +13,13 @@ const yogaTexts = ["יוגה מרגיעה", "יוגה ויניאסה", "יוגי
 const CoverCarousel = ({ interval = 5000 }) => {
   const navigate = useNavigate();
 
-  // Massage state
   const [massageIndex, setMassageIndex] = useState(0);
+  const [yogaIndex, setYogaIndex] = useState(0);
+
   const [massageText, setMassageText] = useState("");
   const [massageTextIdx, setMassageTextIdx] = useState(0);
   const [massageDeleting, setMassageDeleting] = useState(false);
 
-  // Yoga state
-  const [yogaIndex, setYogaIndex] = useState(0);
   const [yogaText, setYogaText] = useState("");
   const [yogaTextIdx, setYogaTextIdx] = useState(0);
   const [yogaDeleting, setYogaDeleting] = useState(false);
@@ -28,27 +27,26 @@ const CoverCarousel = ({ interval = 5000 }) => {
   const massageTimeoutRef = useRef(null);
   const yogaTimeoutRef = useRef(null);
 
-  // Slide image change
+  // החלפת תמונות
   useEffect(() => {
-    const massageInterval = setInterval(() => {
+    const massageTimer = setInterval(() => {
       setMassageIndex((prev) => (prev + 1) % massageImages.length);
     }, interval);
-    const yogaInterval = setInterval(() => {
+    const yogaTimer = setInterval(() => {
       setYogaIndex((prev) => (prev + 1) % yogaImages.length);
     }, interval);
-
     return () => {
-      clearInterval(massageInterval);
-      clearInterval(yogaInterval);
+      clearInterval(massageTimer);
+      clearInterval(yogaTimer);
     };
   }, [interval]);
 
-  // Typing effect for massage
+  // typing effect – massage
   useEffect(() => {
     const current = massageTexts[massageTextIdx % massageTexts.length];
     const speed = massageDeleting ? 60 : 130;
-    const delayAfterWrite = 2000;
-    const delayAfterDelete = 500;
+    const pauseAfterWrite = 2000;
+    const pauseAfterDelete = 500;
 
     if (massageTimeoutRef.current) clearTimeout(massageTimeoutRef.current);
 
@@ -59,7 +57,7 @@ const CoverCarousel = ({ interval = 5000 }) => {
     } else if (!massageDeleting && massageText === current) {
       massageTimeoutRef.current = setTimeout(() => {
         setMassageDeleting(true);
-      }, delayAfterWrite);
+      }, pauseAfterWrite);
     } else if (massageDeleting && massageText.length > 0) {
       massageTimeoutRef.current = setTimeout(() => {
         setMassageText(current.substring(0, massageText.length - 1));
@@ -68,18 +66,16 @@ const CoverCarousel = ({ interval = 5000 }) => {
       massageTimeoutRef.current = setTimeout(() => {
         setMassageDeleting(false);
         setMassageTextIdx((prev) => prev + 1);
-      }, delayAfterDelete);
+      }, pauseAfterDelete);
     }
-
-    return () => clearTimeout(massageTimeoutRef.current);
   }, [massageText, massageDeleting, massageTextIdx]);
 
-  // Typing effect for yoga
+  // typing effect – yoga
   useEffect(() => {
     const current = yogaTexts[yogaTextIdx % yogaTexts.length];
     const speed = yogaDeleting ? 60 : 130;
-    const delayAfterWrite = 2000;
-    const delayAfterDelete = 500;
+    const pauseAfterWrite = 2000;
+    const pauseAfterDelete = 500;
 
     if (yogaTimeoutRef.current) clearTimeout(yogaTimeoutRef.current);
 
@@ -90,7 +86,7 @@ const CoverCarousel = ({ interval = 5000 }) => {
     } else if (!yogaDeleting && yogaText === current) {
       yogaTimeoutRef.current = setTimeout(() => {
         setYogaDeleting(true);
-      }, delayAfterWrite);
+      }, pauseAfterWrite);
     } else if (yogaDeleting && yogaText.length > 0) {
       yogaTimeoutRef.current = setTimeout(() => {
         setYogaText(current.substring(0, yogaText.length - 1));
@@ -99,30 +95,36 @@ const CoverCarousel = ({ interval = 5000 }) => {
       yogaTimeoutRef.current = setTimeout(() => {
         setYogaDeleting(false);
         setYogaTextIdx((prev) => prev + 1);
-      }, delayAfterDelete);
+      }, pauseAfterDelete);
     }
-
-    return () => clearTimeout(yogaTimeoutRef.current);
   }, [yogaText, yogaDeleting, yogaTextIdx]);
 
   return (
     <Box
       sx={{
+        position: "relative",
         display: "flex",
         width: "100%",
         height: { xs: "250px", md: "500px" },
         overflow: "hidden",
       }}
     >
-      {/* Massage Half */}
+      {/* Overlay Title (מרכזי על שני הצדדים) */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: { xs: "5%", md: "12%" },
+          right: 0,
+          left: 0,
+          zIndex: 3,
+          textAlign: "center",
+        }}
+      ></Box>
+
+      {/* Massage Side */}
       <Box
         onClick={() => navigate("/massage")}
-        sx={{
-          position: "relative",
-          width: "50%",
-          height: "100%",
-          cursor: "pointer",
-        }}
+        sx={{ width: "50%", position: "relative", cursor: "pointer" }}
       >
         <Fade in timeout={600}>
           <Box
@@ -147,25 +149,23 @@ const CoverCarousel = ({ interval = 5000 }) => {
             zIndex: 1,
           }}
         />
+        {/* Overlay text & button */}
         <Box
           sx={{
             position: "absolute",
-            top: "50%",
+            top: "55%",
             right: "10%",
-            transform: "translateY(-50%)",
-            color: "#D4C4E2",
+            zIndex: 2,
             textAlign: "right",
             direction: "rtl",
-            zIndex: 2,
           }}
         >
           <Typography
-            variant="h3"
+            variant="h4"
             sx={{
               fontWeight: 900,
-              fontSize: { xs: "1.5rem", md: "2.5rem" },
-              textShadow: "2px 2px 4px rgba(0,0,0,0.7)",
-              whiteSpace: "nowrap",
+              fontSize: { xs: "1.2rem", md: "2rem" },
+              color: "#D4C4E2",
             }}
           >
             {massageText}
@@ -183,15 +183,10 @@ const CoverCarousel = ({ interval = 5000 }) => {
         </Box>
       </Box>
 
-      {/* Yoga Half */}
+      {/* Yoga Side */}
       <Box
         onClick={() => navigate("/yoga")}
-        sx={{
-          position: "relative",
-          width: "50%",
-          height: "100%",
-          cursor: "pointer",
-        }}
+        sx={{ width: "50%", position: "relative", cursor: "pointer" }}
       >
         <Fade in timeout={600}>
           <Box
@@ -216,25 +211,23 @@ const CoverCarousel = ({ interval = 5000 }) => {
             zIndex: 1,
           }}
         />
+        {/* Overlay text & button */}
         <Box
           sx={{
             position: "absolute",
-            top: "50%",
+            top: "55%",
             right: "10%",
-            transform: "translateY(-50%)",
-            color: "#D4C4E2",
+            zIndex: 2,
             textAlign: "right",
             direction: "rtl",
-            zIndex: 2,
           }}
         >
           <Typography
-            variant="h3"
+            variant="h4"
             sx={{
               fontWeight: 900,
-              fontSize: { xs: "1.5rem", md: "2.5rem" },
-              textShadow: "2px 2px 4px rgba(0,0,0,0.7)",
-              whiteSpace: "nowrap",
+              fontSize: { xs: "1.2rem", md: "2rem" },
+              color: "#D4C4E2",
             }}
           >
             {yogaText}
@@ -252,7 +245,7 @@ const CoverCarousel = ({ interval = 5000 }) => {
         </Box>
       </Box>
 
-      {/* CSS for blinking cursor */}
+      {/* Blink animation */}
       <style>
         {`
           @keyframes blink {
