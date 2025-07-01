@@ -70,7 +70,7 @@ const Footer = () => {
               size="small"
               sx={{ color: "#fff", p: 0 }}
               component="a"
-              href="https://wa.me/972521234567"
+              href="https://wa.me/9720502919918"
               target="_blank"
               rel="noopener"
             >
